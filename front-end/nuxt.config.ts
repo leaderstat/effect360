@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     fonts: false
   },
   nitro: {
-    preset: process.env.NITRO_PRESET || 'node-server'
+    preset: process.env.NITRO_PRESET || undefined
   },
   runtimeConfig: {
     public: {
