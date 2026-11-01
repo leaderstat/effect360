@@ -1,0 +1,245 @@
+# compose.yaml — Docker Compose manifest for «Эффективность 360».
+#
+# Single canonical compose file (do NOT create compose.yml/compose.override.yml
+# in parallel — extend this one).
+#
+# Services:
+#   postgres, nats         — runtime data plane.
+#   api                    — Gleam HTTP API (Stage 2 of services/api/Dockerfile).
+#   outbox-relay, consumer — Go workers (services/worker/Dockerfile).
+#   web                    — nginx serving the current vanilla-JS applicant UI.
+#   frontend-builder       — multi-stage build that produces a static bundle of
+#                            the Lustre-based spike (services/frontend/Dockerfile).
+#   frontend               — serves the Lustre spike (profile: spike).
+#   tooling                — ad-hoc dev shell with Python/Node/Playwright
+#                            (only used via `docker compose run --rm tooling …`).
+#   qa                     — runs the Playwright E2E suite against the running
+#                            API + web stack (started only when the `qa` profile
+#                            is active: `docker compose --profile qa up qa`).
+#
+# Toolchain rule: every `gleam`, `go`, `psql`, `python`, `node`, `pytest` and
+# Playwright invocation in scripts MUST run inside one of these containers.
+# Never invoke them from PowerShell on the host.
+
+services:
+  # ---- Data plane ----
+  postgres:
+    build:
+      context: .
+      dockerfile: database/Dockerfile
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-effectivnost360}
+      POSTGRES_USER: ${POSTGRES_USER:-effectivnost360}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # NOTE: port 5432 is exposed to the host ONLY because the project's
+    # tooling scripts (e.g. `scripts/seed_*.py`) connect from the host
+    # during the v0.1 development phase. Production must drop this.
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  nats:
+    image: nats:2.11-alpine
+    # `-m 8222` enables the HTTP monitoring endpoint the healthcheck probes.
+    command: ["-js", "-sd", "/data", "-m", "8222"]
+    volumes:
+      - nats_data:/data
+    # NATS stays on the internal network — no host port for production
+    # hygiene. Local dev: `docker compose exec nats nats sub ...` works
+    # without a host port.
+    expose:
+      - "4222"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+  # ---- HTTP API ----
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+      target: runtime
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      PORT: 8000
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?Set SECRET_KEY_BASE in .env}
+      # Restrict CORS to the local dev origins. Production must replace this
+      # with a properly configured allow-list or be served behind the same
+      # origin as the frontend.
+      DEV_ALLOWED_ORIGINS: ${DEV_ALLOWED_ORIGINS:-http://localhost:8050,http://localhost:8000,http://127.0.0.1:8050,http://127.0.0.1:8000}
+      # ---- Phase 8: the AI agents ----
+      #
+      # The service token of the agents. The agent layer is switched off
+      # when the token is empty: the agent endpoints then refuse every
+      # caller instead of opening a hole.
+      AGENT_SERVICE_TOKEN: ${AGENT_SERVICE_TOKEN:-}
+    ports:
+      - "${PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8000/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # ---- Go workers ----
+  outbox-relay:
+    build:
+      context: services/worker
+      target: runtime
+      args:
+        BIN: outbox-relay
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      NATS_URL: ${NATS_URL:-nats://nats:4222}
+      NATS_STREAM: ${NATS_STREAM:-EFFECTIVNOST_JOBS}
+      NATS_SUBJECT: ${NATS_SUBJECT:-requests.*}
+      POLL_INTERVAL: 1s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    restart: unless-stopped
+
+  consumer:
+    build:
+      context: services/worker
+      target: runtime
+      args:
+        BIN: consumer
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      NATS_URL: ${NATS_URL:-nats://nats:4222}
+      NATS_STREAM: ${NATS_STREAM:-EFFECTIVNOST_JOBS}
+      # The consumer subscribes to the events of BOTH agents plus the
+      # classifier. The agent events are the Phase-8 pipeline.
+      NATS_SUBJECT: "requests.*"
+      NATS_DURABLE: effectivnost-360-consumer
+      MAX_ATTEMPTS: 5
+      RETRY_DELAY: 5s
+      POLL_TIMEOUT: 2s
+      # ---- Phase 8: the AI agents ----
+      #
+      # The agents talk to the Gleam API. The API is the source of truth
+      # for the statuses, the access rights and the business rules; the
+      # agents only prepare decisions.
+      AGENT_API_URL: ${AGENT_API_URL:-http://api:8000}
+      AGENT_SERVICE_TOKEN: ${AGENT_SERVICE_TOKEN:-}
+      # The approved template of the official letter (Agent B).
+      AGENT_LETTER_TEMPLATE: ${AGENT_LETTER_TEMPLATE:-}
+      # How many hours before the deadline the "risk of overdue" reminder
+      # is created.
+      AGENT_DEADLINE_WARN_HOURS: ${AGENT_DEADLINE_WARN_HOURS:-24}
+      # Local LLM provider (Ollama or OpenAI-compatible). If unset,
+      # the consumer falls back to the deterministic heuristic
+      # classifier for every request (the documented safe
+      # degradation path). See docs/architecture/local-llm-migration.md.
+      LOCAL_LLM_PROVIDER: ${LOCAL_LLM_PROVIDER:-ollama}
+      LOCAL_LLM_BASE_URL: ${LOCAL_LLM_BASE_URL:-http://host.docker.internal:11434}
+      LOCAL_LLM_API_KEY: ${LOCAL_LLM_API_KEY:-}
+      LOCAL_LLM_MODEL: ${LOCAL_LLM_MODEL:-devstral-small-2:latest}
+      LOCAL_LLM_TIMEOUT: ${LOCAL_LLM_TIMEOUT:-30s}
+      LOCAL_LLM_TEMPERATURE: ${LOCAL_LLM_TEMPERATURE:-0.1}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      outbox-relay:
+        condition: service_started
+    restart: unless-stopped
+
+  # ---- Frontends ----
+  # The Lustre frontend is now the primary web service. It is a real
+  # Gleam+Lustre 5.x project that compiles to JavaScript, serves via
+  # nginx and reverse-proxies `/api/` to the API container. The vanilla-JS
+  # applicant UI is kept behind the `vanilla` profile for reference.
+  web:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    image: effectivnost360/frontend:latest
+    ports:
+      - "8050:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web-vanilla:
+    image: nginx:1.27-alpine
+    profiles: ["vanilla"]
+    volumes:
+      - ./services/web:/usr/share/nginx/html:ro
+    ports:
+      - "8052:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # ---- Lustre spike under the `spike` profile (kept for A/B testing) ----
+  frontend:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    image: effectivnost360/frontend-spike:latest
+    profiles: ["spike"]
+    ports:
+      - "8051:80"
+    restart: unless-stopped
+
+  # ---- Tooling & QA (dev-only, never on by default) ----
+  tooling:
+    build:
+      context: ./tooling
+      dockerfile: Dockerfile
+    image: effectivnost360/tooling:latest
+    profiles: ["dev"]
+    volumes:
+      - .:/work:rw
+    working_dir: /work
+    environment:
+      PYTHONUNBUFFERED: "1"
+      PYTHONIOENCODING: "utf-8"
+      API_BASE_URL: "http://api:8000"
+    depends_on:
+      api:
+        condition: service_healthy
+    command: ["bash"]
+
+  qa:
+    image: effectivnost360/tooling:latest
+    profiles: ["qa"]
+    volumes:
+      - .:/work:rw
+    working_dir: /work
+    environment:
+      API_BASE_URL: "http://api:8000"
+      WEB_BASE_URL: "http://web:8050"
+      CI: "1"
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_started
+    command: ["bash", "-lc", "node --check scripts/qa_e2e.mjs && python scripts/verify_fixture_citations.py --fixture database/seeds/demo_synthetic_fixture.json && echo '[qa] ready; invoke scripts/qa_e2e.mjs manually'"]
+
+volumes:
+  postgres_data:
+  nats_data:

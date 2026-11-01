@@ -1,0 +1,166 @@
+// services/frontend/styles/theme.sass
+//
+// The single build entry point of the design system.
+//
+// Compiled at Docker build time to `public/theme.css` with a pinned Dart
+// Sass version. The runtime serves the finished CSS - no Sass compiler, no
+// Node.js and no bundler in the runtime image.
+//
+// Usage (inside the frontend Docker build stage):
+//   sass --no-source-map --style=compressed --load-path=styles \
+//        styles/theme.sass public/theme.css
+
+@use "tokens"
+@use "mixins"
+@use "layout"
+@use "components"
+@use "pages"
+
+// ---------------------------------------------------------------------------
+// Base / reset
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after
+  box-sizing: border-box
+
+html
+  -webkit-text-size-adjust: 100%
+  scroll-behavior: smooth
+
+body
+  margin: 0
+  min-height: 100vh
+  background: var(--color-bg)
+  color: var(--color-text)
+  font-family: var(--font-family-base)
+  font-size: var(--font-size-base)
+  line-height: var(--line-height-normal)
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+  margin: 0
+  font-weight: var(--font-weight-semibold)
+  line-height: var(--line-height-tight)
+
+p
+  margin: 0
+
+a
+  color: var(--color-primary)
+  text-decoration: none
+  @include mixins.focus-ring
+
+  &:hover
+    text-decoration: underline
+
+img,
+svg
+  max-width: 100%
+  display: block
+
+button
+  font-family: inherit
+
+ul
+  margin: 0
+  padding: 0
+
+code,
+pre
+  font-family: var(--font-family-mono)
+  font-size: var(--font-size-sm)
+
+::selection
+  background: var(--color-primary-subtle)
+  color: var(--color-text)
+
+// Scrollbars - thin and unobtrusive, consistent across browsers.
+*
+  @include mixins.scrollbar-thin
+
+// ---------------------------------------------------------------------------
+// Accessibility
+// ---------------------------------------------------------------------------
+:focus-visible
+  outline: 2px solid var(--color-primary)
+  outline-offset: 2px
+
+@include mixins.reduced-motion
+  *,
+  *::before,
+  *::after
+    animation-duration: 0.01ms !important
+    animation-iteration-count: 1 !important
+    transition-duration: 0.01ms !important
+    scroll-behavior: auto !important
+
+@include mixins.high-contrast
+  :root
+    --color-border: #4a5b6d
+    --color-border-strong: #6b7f93
+    --color-text-muted: #c3cedb
+    --color-text-subtle: #9aa9b8
+
+@include mixins.forced-colors
+  .btn,
+  .card,
+  .input,
+  .textarea,
+  .select,
+  .badge
+    border: 1px solid ButtonBorder
+
+// ---------------------------------------------------------------------------
+// Utilities
+// ---------------------------------------------------------------------------
+.visually-hidden
+  @include mixins.visually-hidden
+
+.text-muted
+  color: var(--color-text-muted)
+
+.text-subtle
+  color: var(--color-text-subtle)
+
+.text-danger
+  color: var(--color-danger)
+
+.text-success
+  color: var(--color-success)
+
+.text-warning
+  color: var(--color-warning)
+
+.stack
+  @include mixins.stack
+
+.stack-sm
+  @include mixins.stack(var(--spacing-2))
+
+.stack-lg
+  @include mixins.stack(var(--spacing-6))
+
+.cluster
+  @include mixins.cluster
+
+.mono
+  font-family: var(--font-family-mono)
+
+.nowrap
+  white-space: nowrap
+
+.truncate
+  @include mixins.truncate
+
+// The page never scrolls horizontally, at any width.
+html,
+body
+  overflow-x: hidden
+  max-width: 100%

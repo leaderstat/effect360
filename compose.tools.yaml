@@ -1,0 +1,18 @@
+# A throw-away Sass compiler used during development to iterate on the
+# stylesheets without rebuilding the whole frontend image.
+#
+#   docker compose --profile tools run --rm styles
+#
+# It compiles `styles/theme.sass` into `public/theme.css` inside the build
+# context. The application runtime never uses this image.
+services:
+  styles:
+    profiles:
+      - tools
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile.sass
+    volumes:
+      - ./services/frontend:/app
+    command: >
+      sh -c "sass --no-source-map --style=expanded --load-path=styles styles/theme.sass public/theme.css && echo 'SASS_OK' && wc -c public/theme.css"

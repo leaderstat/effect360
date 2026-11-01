@@ -1,0 +1,9 @@
+FROM erlang:28-alpine AS builder
+ARG GLEAM_VERSION=1.19.2
+RUN apk add --no-cache curl tar bash git nodejs npm
+RUN curl -fsSL "https://github.com/gleam-lang/gleam/releases/download/v${GLEAM_VERSION}/gleam-v${GLEAM_VERSION}-x86_64-unknown-linux-musl.tar.gz" -o /tmp/gleam.tar.gz && tar -xz -C /usr/local/bin -f /tmp/gleam.tar.gz && rm /tmp/gleam.tar.gz
+WORKDIR /app
+COPY gleam.toml ./
+RUN gleam deps download
+RUN grep -n "^pub fn " /app/build/packages/gleam_stdlib/src/gleam/float.gleam
+CMD ["true"]

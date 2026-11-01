@@ -1,0 +1,116 @@
+{
+  "_about": "SYNTHETIC / DEMO FIXTURE — NOT a real regulation. Used only to unblock the demo path while the real ПП РФ № 501 source text remains unavailable. MUST NOT be enabled in production; MUST NOT be mixed with the production fixture.",
+  "regulation": {
+    "title": "Synthetic Demo Position on Internal Travel (DRAFT, учебный)",
+    "version": "2026-01-01-demo",
+    "status": "demo_only",
+    "kind": "synthetic_demo",
+    "source": {
+      "act_kind": "Synthetic demo act",
+      "number": "DEMO-001",
+      "date": "1 января 2026 г.",
+      "publisher": "Учебная организация «Пример-Демо»",
+      "raw_text_source": "synthetic://local/demo",
+      "is_synthetic": true
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "p.1",
+      "number": "1",
+      "title": "Направление в учебную поездку",
+      "text": "Работник направляется в учебную поездку по решению руководителя подразделения на основании служебного задания."
+    },
+    {
+      "clause_id": "p.2",
+      "number": "2",
+      "title": "Срок учебной поездки",
+      "text": "Срок учебной поездки устанавливает работодатель с учётом объёма задания и не может превышать сорока рабочих дней."
+    },
+    {
+      "clause_id": "p.3",
+      "number": "3",
+      "title": "Город назначения",
+      "text": "В задании указываются город и место назначения, цель поездки и планируемые даты начала и окончания."
+    },
+    {
+      "clause_id": "p.4",
+      "number": "4",
+      "title": "Источник финансирования",
+      "text": "Источник финансирования учебной поездки определяется при направлении. Если источником является грант, в задании указывается номер гранта."
+    },
+    {
+      "clause_id": "p.5",
+      "number": "5",
+      "title": "Аванс на расходы",
+      "text": "Работнику выдаётся аванс на оплату расходов по учебной поездке в пределах утверждённой сметы."
+    },
+    {
+      "clause_id": "p.6",
+      "number": "6",
+      "title": "Отчёт по итогам",
+      "text": "По окончании учебной поездки работник представляет краткий отчёт и подтверждающие документы в течение трёх рабочих дней."
+    }
+  ],
+  "request_type": {
+    "name": "Учебная поездка (DEMO)",
+    "enabled": false,
+    "kind": "demo_only",
+    "note": "Включение в production ЗАПРЕЩЕНО. Используется только для разблокировки демо-сценария до получения реального текста ПП РФ № 501."
+  },
+  "_verification_status": {
+    "citation_validation": "PASS",
+    "notes": "Synthetic quotes are literal copies of synthetic clause text; they are NOT legal citations and have NO regulatory force."
+  },
+  "requirements": [
+    {
+      "field_name": "destination_city",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.3",
+      "quote": "город и место назначения, цель поездки"
+    },
+    {
+      "field_name": "purpose",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.3",
+      "quote": "цель поездки и планируемые даты начала и окончания"
+    },
+    {
+      "field_name": "start_date",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.3",
+      "quote": "планируемые даты начала и окончания"
+    },
+    {
+      "field_name": "end_date",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.2",
+      "quote": "Срок учебной поездки устанавливает работодатель"
+    },
+    {
+      "field_name": "funding_source",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.4",
+      "quote": "Источник финансирования учебной поездки определяется при направлении"
+    },
+    {
+      "field_name": "grant_number",
+      "required": false,
+      "condition": "required if funding_source == 'grant'",
+      "clause_id": "p.4",
+      "quote": "Если источником является грант, в задании указывается номер гранта"
+    },
+    {
+      "field_name": "approver_id",
+      "required": true,
+      "condition": null,
+      "clause_id": "p.1",
+      "quote": "по решению руководителя подразделения"
+    }
+  ]
+}

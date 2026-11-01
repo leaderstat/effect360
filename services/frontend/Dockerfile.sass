@@ -1,0 +1,12 @@
+# A throw-away builder image with Dart Sass for local iteration.
+# Not part of the application runtime - used only to compile and lint the
+# stylesheets during development.
+FROM erlang:28-alpine
+
+ARG SASS_VERSION=1.77.8
+RUN apk add --no-cache nodejs npm \
+    && npm install --no-save --no-audit --no-fund "sass@${SASS_VERSION}"
+
+WORKDIR /app
+COPY styles ./styles
+CMD ["sass", "--no-source-map", "--style=compressed", "--load-path=styles", "styles/theme.sass", "public/theme.css"]

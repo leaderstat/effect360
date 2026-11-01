@@ -1,0 +1,21 @@
+import { chromium } from 'playwright';
+
+const TOKEN = process.argv[2];
+const b = await chromium.launch();
+const ctx = await b.newContext();
+await ctx.addInitScript(t => sessionStorage.setItem('e360.session-token', t), TOKEN);
+const p = await ctx.newPage();
+p.on('console', m => process.stdout.write('CON ' + m.type() + ' ' + m.text().slice(0, 800) + '\n'));
+p.on('pageerror', e => process.stdout.write('PERR ' + e.message + '\n' + (e.stack ? e.stack.slice(0, 1500) : '') + '\n'));
+p.on('request', r => process.stdout.write('REQ ' + r.method() + ' ' + r.url() + '\n'));
+p.on('response', r => process.stdout.write('RES ' + r.status() + ' ' + r.url() + '\n'));
+p.on('request', r => process.stdout.write('REQ ' + r.method() + ' ' + r.url() + '\n'));
+await p.goto('http://effectivnost-360-frontend-1/automation', { waitUntil: 'domcontentloaded', timeout: 30000 });
+await p.waitForTimeout(8000);
+const h1 = await p.locator('h1').first().textContent().catch(() => '');
+const err = await p.locator('.banner-error').first().textContent().catch(() => '');
+const html = await p.content().catch(() => '');
+process.stdout.write('H1=' + h1 + '\n');
+process.stdout.write('ERR=' + err + '\n');
+process.stdout.write('LEN_HTML=' + html.length + '\n');
+await b.close();

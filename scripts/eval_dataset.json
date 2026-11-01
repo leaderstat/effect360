@@ -1,0 +1,59 @@
+[
+  {
+    "_about": "Synthetic eval dataset for the DEMO scenario (synthetic 'Учебная поездка' regulation). NOT a real eval — sample texts are deliberately simple so that a heuristic extractor can reach 100% on them; a real LLM must do the same on harder, noisier real-world phrases.",
+    "text": "Прошу учебную поездку в Казань с 12 по 14 ноября 2026 года. Цель — конференция AI-Summit. Финансирование — грант РФФИ 24-11-001.",
+    "expected_type": "demo_trip",
+    "expected_fields": {
+      "destination_city": "Казань",
+      "purpose": "конференция AI-Summit",
+      "start_date": "12 ноября 2026",
+      "end_date": "14 ноября 2026",
+      "funding_source": "grant",
+      "grant_number": "РФФИ 24-11-001"
+    }
+  },
+  {
+    "text": "Нужно поехать в Санкт-Петербург 3-5 декабря, встречи с подрядчиками. Оплата из бюджета отдела.",
+    "expected_type": "demo_trip",
+    "expected_fields": {
+      "destination_city": "Санкт-Петербург",
+      "purpose": "встречи с подрядчиками",
+      "start_date": "3 декабря",
+      "end_date": "5 декабря",
+      "funding_source": "budget"
+    }
+  },
+  {
+    "text": "Командировка в Новосибирск на неделю, цель — участие в семинаре. Финансирование — грант РНФ 25-22-099.",
+    "expected_type": "demo_trip",
+    "expected_fields": {
+      "destination_city": "Новосибирск",
+      "purpose": "участие в семинаре",
+      "funding_source": "grant",
+      "grant_number": "РНФ 25-22-099"
+    }
+  },
+  {
+    "text": "Хочу поехать в Сочи 1-7 марта, отдохнуть и поработать над документами.",
+    "expected_type": "demo_trip",
+    "expected_fields": {
+      "destination_city": "Сочи",
+      "start_date": "1 марта",
+      "end_date": "7 марта"
+    }
+  },
+  {
+    "text": "Это просто тест без командировки.",
+    "expected_type": "other",
+    "expected_fields": {}
+  },
+  {
+    "text": "Прошу учебную поездку в Екатеринбург с 20 по 22 января 2027 года.",
+    "expected_type": "demo_trip",
+    "expected_fields": {
+      "destination_city": "Екатеринбург",
+      "start_date": "20 января 2027",
+      "end_date": "22 января 2027"
+    }
+  }
+]

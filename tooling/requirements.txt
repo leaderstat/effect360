@@ -1,0 +1,4 @@
+# Tooling image: minimal Python deps for citation validation and eval harness.
+# These match the project-level expectations in scripts/verify_fixture_citations.py
+# and scripts/eval_harness.py. Add more only if absolutely required.
+pytest>=8.0

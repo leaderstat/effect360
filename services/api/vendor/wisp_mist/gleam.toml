@@ -1,0 +1,11 @@
+name = "wisp_mist"
+version = "1.0.0"
+description = "Vendored Mist adapter for Wisp"
+licences = ["Apache-2.0"]
+
+[dependencies]
+gleam_stdlib = ">= 0.70.0 and < 2.0.0"
+mist = ">= 6.0.0 and < 7.0.0"
+wisp = ">= 2.0.0 and < 3.0.0"
+gleam_http = ">= 4.0.0 and < 5.0.0"
+exception = ">= 2.0.0 and < 3.0.0"

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Эффективность 360 — подготовка заявки</title>
+  <link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+  <!--
+    The Gleam build emits a Gleam program as an ES module. The program
+    itself lives in `/effectivnost_360_lustre/effectivnost_360_lustre.mjs`
+    and exports `main()`. Use ABSOLUTE paths so the script and CSS still
+    load when the URL is `/describe` or `/request/{id}` (SPA routes).
+  -->
+  <div id="app"></div>
+  <script type="module">
+    import { main } from "/effectivnost_360_lustre/effectivnost_360_lustre.mjs";
+    main();
+  </script>
+</body>
+</html>

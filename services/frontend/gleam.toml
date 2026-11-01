@@ -1,0 +1,28 @@
+# services/frontend/gleam.toml — Lustre 5.x spike frontend.
+#
+# NOTE: This is an INDEPENDENT Gleam project — it does NOT share the
+# API service's stdlib constraint. The API service pins
+# `gleam_stdlib = ">= 0.70.0 and < 2.0.0"` because of `pog`; this
+# frontend has no such transitive dependency, so it uses the latest
+# stable Lustre + stdlib combination the resolver can produce.
+
+name = "effectivnost_360_lustre"
+version = "0.1.0"
+description = "Lustre-based spike frontend for Effectivnost 360 — applicant UI"
+licences = ["MIT"]
+# The min required Gleam version for Lustre 5.x. Latest stable Gleam
+# compiler (1.13.x as of October 2026) works with this constraint.
+gleam = ">= 1.11.0"
+target = "javascript"
+
+[dependencies]
+gleam_http = ">= 4.0.0 and < 5.0.0"
+gleam_json = ">= 3.0.1 and < 4.0.0"
+gleam_stdlib = ">= 1.0.0 and < 2.0.0"
+# Use Lustre from main branch because the published 5.x on Hex pins
+# gleam_stdlib <1.0.0 which doesn't yet expose `list.range`. Main
+# branch resolves gleam_stdlib to 1.x and compiles cleanly.
+lustre = { git = "https://github.com/lustre-labs/lustre.git", ref = "main" }
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"

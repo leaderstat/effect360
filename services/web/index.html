@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Эффективность 360 — заявка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Эффективность 360</h1>
+      <p class="subtitle">Заявка на учебную поездку (DEMO-режим)</p>
+    </header>
+
+    <section id="step-1" class="step active" aria-labelledby="step-1-title">
+      <h2 id="step-1-title">1. Опишите запрос</h2>
+      <form id="form-create">
+        <label for="text">Свободный текст заявки</label>
+        <textarea
+          id="text"
+          name="text"
+          rows="4"
+          placeholder="Например: Прошу командировку в Казань 12-14 ноября, конференция AI-Summit, финансирование — грант RSF-24-1-2."
+          required></textarea>
+        <label for="idempotency_key">Ключ идемпотентности (UUID, до 128 симв.)</label>
+        <input
+          type="text"
+          id="idempotency_key"
+          name="idempotency_key"
+          minlength="1"
+          maxlength="128"
+          required>
+        <button type="submit">Создать черновик</button>
+      </form>
+      <p id="status-1" class="status" role="status"></p>
+    </section>
+
+    <section id="step-2" class="step" aria-labelledby="step-2-title">
+      <h2 id="step-2-title">2. Статус и поля</h2>
+      <p>ID заявки: <code id="request-id">—</code></p>
+      <p>Статус: <code id="request-status">—</code></p>
+
+      <h3>Заполненные поля</h3>
+      <ul id="filled-fields"></ul>
+
+      <h3>Что нужно уточнить</h3>
+      <ul id="missing-fields"></ul>
+
+      <h3>Кнопка отправки</h3>
+      <p id="complete-msg"></p>
+      <button id="btn-submit" disabled>Отправить заявку</button>
+      <p id="status-2" class="status" role="status"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 # Compose использует build context = . для сервисов, где указан context: .
 # в compose.yaml (например, database/). Этот файл защищает от случайного
 # копирования секретов и тяжёлых артефактов в образ.
+# Generated Gleam/Lustre build artifacts
+services/frontend/build/
 
 # Secrets and env
 .env

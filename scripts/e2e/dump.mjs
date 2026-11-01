@@ -1,0 +1,12 @@
+import { chromium } from "/tmp/node_modules/playwright/index.mjs";
+const b = await chromium.launch({ headless: true });
+const p = await b.newPage();
+p.on("console", m => console.log("CON", m.type(), m.text()));
+p.on("pageerror", e => console.log("ERR", e.message));
+p.on("response", r => console.log("NET", r.status(), r.url().slice(0, 100)));
+await p.goto("http://e360-web/", { waitUntil: "networkidle", timeout: 15000 });
+await p.waitForTimeout(3000);
+const html = await p.content();
+console.log("LEN", html.length);
+console.log("BODY:", html.substring(0, 800));
+await b.close();

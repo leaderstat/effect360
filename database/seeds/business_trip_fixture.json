@@ -1,0 +1,416 @@
+{
+  "_about": "Fixture для типа заявки «Служебная командировка». Основа: ПП РФ от 16.04.2025 № 501 (заменяет ПП № 749, утративший силу с 01.09.2025), ТК РФ ст. 153, 166, 167, 168, 203, 259, 264, 268, 139. Цитаты приведены по docs/Законодательство_о_командировках_—_статьи.md (собрано 26.10.2026, проверено по КонсультантПлюс и Гаранту). Дословность полных текстов пунктов должна быть подтверждена первоисточником (consultant.ru / pravo.gov.ru) перед включением типа в production. Каждое требование помечено clause_source_kind: 'verbatim_quote' (дословно из документа) или 'summary_point' (краткое изложение нормы, требует сверки).",
+  "regulation": {
+    "title": "Положение об особенностях направления работников в служебные командировки",
+    "version": "2025-04-16",
+    "status": "approved",
+    "source": {
+      "act_kind": "Постановление Правительства Российской Федерации",
+      "number": "501",
+      "date": "16 апреля 2025 г.",
+      "publisher": "Правительство Российской Федерации",
+      "publication": "Официальный интернет-портал правовой информации (pravo.gov.ru), опубликовано 16.04.2025, номер опубликования 0001202504160034. Собрание законодательства Российской Федерации, 2025, № 17, ст. 1195. Российская газета, 2025, 25 апреля, № 91.",
+      "portal_url": "http://pravo.gov.ru",
+      "raw_text_source": "https://www.consultant.ru/document/cons_doc_LAW_503406/856de09213dec309d439af5754055dbc4acab98d/",
+      "supersedes": "Постановление Правительства Российской Федерации от 13 октября 2008 г. № 749 (утратило силу с 1 сентября 2025 г., base.garant.ru/12162866/)",
+      "effective_from": "2025-09-01",
+      "effective_until": "2031-09-01",
+      "note": "Действующий публичный нормативный акт РФ. Источник норм: docs/Законодательство_о_командировках_—_статьи.md от 26.10.2026."
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "pp501_p2",
+      "number": "2",
+      "text": "В служебные командировки направляются работники, состоящие в трудовых отношениях. Работники, выполняющие работы (оказывающие услуги) по гражданско-правовым договорам, в служебные командировки не направляются.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 2 ПП 501 (consultant.ru)"
+    },
+    {
+      "clause_id": "pp501_p3",
+      "number": "3",
+      "text": "Местом постоянной работы работника является место, указанное в трудовом договоре. Служебная командировка оформляется письменным решением работодателя.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 3 ПП 501"
+    },
+    {
+      "clause_id": "pp501_p4",
+      "number": "4",
+      "text": "Срок служебной командировки определяется работодателем. Днем выезда в служебную командировку считается дата отправления транспортного средства от места постоянной работы, а днем приезда — дата прибытия транспортного средства к месту постоянной работы. При отправлении транспортного средства до 24 часов включительно днем отъезда в командировку считаются текущие сутки, а с 00 часов и позднее — последующие сутки. Время нахождения в пути сверх установленного графика движения транспорта учитывается отдельно. Выход работника на работу в день отъезда и день приезда согласуется с работодателем.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 4 ПП 501"
+    },
+    {
+      "clause_id": "pp501_p6",
+      "number": "6",
+      "text": "Фактический срок пребывания работника в месте командировки определяется по проездным документам, представляемым работником по возвращении из служебной командировки. В случае отсутствия проездных документов — по документам о найме жилого помещения. При отсутствии и тех и других документов — по служебной записке и (или) иному документу принимающей стороны, содержащему даты прибытия и убытия работника.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 6 ПП 501"
+    },
+    {
+      "clause_id": "pp501_p9",
+      "number": "9",
+      "text": "Суточные выплачиваются за каждый день нахождения в служебной командировке, включая выходные и нерабочие праздничные дни, а также дни в пути. При возможности ежедневного возвращения к месту постоянного жилья суточные не выплачиваются. Вопрос о возможности ежедневного возвращения к месту постоянного жилья решается руководителем.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 9 ПП 501"
+    },
+    {
+      "clause_id": "pp501_p12",
+      "number": "12",
+      "text": "Расходы по найму жилого помещения возмещаются работнику, за исключением случаев, когда работнику предоставляется бесплатное жилое помещение.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 12 ПП 501"
+    },
+    {
+      "clause_id": "pp501_p23",
+      "number": "23",
+      "text": "Работник представляет авансовый отчёт в течение трёх рабочих дней после возвращения из служебной командировки с приложением документов о найме жилого помещения, проездных и иных документов, подтверждающих произведённые в командировке расходы.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, п. 23 ПП 501"
+    },
+    {
+      "clause_id": "tk259_1",
+      "number": "259.1",
+      "text": "Направление в служебные командировки, служебные поездки беременных женщин не допускается.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 259 ч. 1 ТК РФ (consultant.ru)"
+    },
+    {
+      "clause_id": "tk268",
+      "number": "268",
+      "text": "Запрещаются направление в служебные командировки, привлечение к сверхурочной работе, работе в ночное время, в выходные и нерабочие праздничные дни работников в возрасте до восемнадцати лет.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 268 ТК РФ"
+    },
+    {
+      "clause_id": "tk203_3",
+      "number": "203.3",
+      "text": "Ученики по ученическому договору не могут направляться в служебные командировки, не связанные с ученичеством.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 203 ч. 3 ТК РФ"
+    },
+    {
+      "clause_id": "tk167_2",
+      "number": "167.2",
+      "text": "Направление инвалидов в служебные командировки допускается только с их письменного согласия и при условии, что такая командировка не запрещена им в соответствии с медицинским заключением. При этом инвалиды должны быть в письменной форме ознакомлены с правом отказаться от направления в служебную командировку.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 167 ч. 2 ТК РФ"
+    },
+    {
+      "clause_id": "tk259_2",
+      "number": "259.2",
+      "text": "Направление в служебные командировки, служебные поездки женщин, имеющих детей в возрасте до трёх лет, допускается только с их письменного согласия и при условии, что такая командировка не запрещена им в соответствии с медицинским заключением. Указанные работники должны быть в письменной форме ознакомлены с правом отказаться от направления в служебную командировку.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 259 ч. 2 ТК РФ"
+    },
+    {
+      "clause_id": "tk153",
+      "number": "153",
+      "text": "Работа в выходной или нерабочий праздничный день оплачивается не менее чем в двойном размере. По желанию работника, работавшего в выходной или нерабочий праздничный день, ему может быть предоставлен другой день отдыха. В этом случае работа в выходной или нерабочий праздничный день оплачивается в одинарном размере, а день отдыха оплате не подлежит.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 153 ТК РФ (п. 5 ПП 501 ссылается)"
+    },
+    {
+      "clause_id": "tk166",
+      "number": "166",
+      "text": "Служебная командировка — поездка работника по распоряжению работодателя на определённый срок для выполнения служебного поручения вне места постоянной работы. Особенности направления работников в служебные командировки устанавливаются Правительством Российской Федерации.",
+      "clause_source_kind": "verbatim_quote",
+      "clause_source_ref": "docs/Законодательство_о_командировках_—_статьи.md, ст. 166 ТК РФ"
+    }
+  ],
+  "request_type": {
+    "name": "Служебная командировка",
+    "description": "Заявка на направление работника в служебную командировку в соответствии с Постановлением Правительства РФ от 16.04.2025 № 501 «Об особенностях направления работников в служебные командировки». Заменяет ПП № 749 с 01.09.2025.",
+    "enabled": false,
+    "_enabled_blocker": "Перед включением типа в production требуется подтверждение дословности всех clause.text по первоисточнику (consultant.ru / pravo.gov.ru). Все цитаты помечены clause_source_kind; verbatim_quote могут быть использованы после юридической сверки.",
+    "fields_schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "required": [
+        "destination_city",
+        "start_date",
+        "end_date",
+        "purpose",
+        "employment_type",
+        "is_pregnant",
+        "is_under_18",
+        "has_apprentice_contract",
+        "daily_return_home"
+      ],
+      "properties": {
+        "destination_city": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Город (пункт) назначения командировки (п. 3 ПП 501)."
+        },
+        "organization": {
+          "type": "string",
+          "description": "Принимающая организация (необязательно)."
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Дата начала командировки (день выезда; п. 4 ПП 501)."
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Дата окончания командировки (день приезда; п. 4 ПП 501)."
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Цель командировки / служебное поручение (п. 3 ПП 501)."
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "employee",
+            "gph"
+          ],
+          "description": "Тип трудовых отношений. Запрещено для gph (п. 2 ПП 501)."
+        },
+        "is_pregnant": {
+          "type": "boolean",
+          "description": "Признак беременности. При true — запрещено (ст. 259 ч. 1 ТК)."
+        },
+        "is_under_18": {
+          "type": "boolean",
+          "description": "Признак возраста до 18 лет. При true — запрещено (ст. 268 ТК)."
+        },
+        "has_apprentice_contract": {
+          "type": "boolean",
+          "description": "Наличие ученического договора. Требуется подтверждение связи с ученичеством (ст. 203 ч. 3 ТК)."
+        },
+        "disability_group": {
+          "type": "string",
+          "enum": [
+            "none",
+            "I",
+            "II",
+            "III"
+          ],
+          "description": "Группа инвалидности. При наличии требуются согласие и медзаключение (ст. 167 ч. 2 ТК)."
+        },
+        "written_consent_disability": {
+          "type": "boolean",
+          "description": "Письменное согласие инвалида (ст. 167 ч. 2 ТК)."
+        },
+        "medical_clearance_disability": {
+          "type": "boolean",
+          "description": "Медицинское заключение о допуске (ст. 167 ч. 2 ТК)."
+        },
+        "protected_category": {
+          "type": "string",
+          "enum": [
+            "none",
+            "child_under_3",
+            "child_disabled",
+            "lone_parent",
+            "guardian_minor",
+            "mobilized_parent",
+            "caregiver",
+            "multiparity"
+          ],
+          "description": "Защищённая категория (ст. 259 ч. 2–3, ст. 264 ТК)."
+        },
+        "written_consent_protected": {
+          "type": "boolean",
+          "description": "Письменное согласие для защищённой категории (ст. 259 ч. 2 ТК)."
+        },
+        "medical_clearance_protected": {
+          "type": "boolean",
+          "description": "Медицинское заключение о допуске (ст. 259 ч. 2 ТК)."
+        },
+        "daily_return_home": {
+          "type": "boolean",
+          "description": "Возможность ежедневного возвращения к месту постоянного жилья. При true — суточные не выплачиваются (п. 9 ПП 501)."
+        },
+        "trip_scope": {
+          "type": "string",
+          "enum": [
+            "domestic",
+            "international"
+          ],
+          "description": "Внутрироссийская или зарубежная командировка (пп. 13–20 ПП 501)."
+        },
+        "weekend_dates_acknowledged": {
+          "type": "boolean",
+          "description": "Подтверждение, что даты захватывают выходные/праздники и работник ознакомлен с порядком оплаты (п. 5 ПП 501, ст. 153 ТК)."
+        },
+        "estimated_expenses": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Ориентировочные командировочные расходы (рубли)."
+        },
+        "actual_stay_docs": {
+          "type": "string",
+          "enum": [
+            "tickets",
+            "housing",
+            "memo",
+            "none"
+          ],
+          "description": "Документы, подтверждающие фактический срок пребывания после возвращения (п. 6 ПП 501)."
+        }
+      }
+    }
+  },
+  "requirements": [
+    {
+      "field_name": "destination_city",
+      "required": true,
+      "clause_id": "pp501_p3",
+      "quote": "Местом постоянной работы работника является место, указанное в трудовом договоре. Служебная командировка оформляется письменным решением работодателя.",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "start_date",
+      "required": true,
+      "clause_id": "pp501_p4",
+      "quote": "Днем выезда в служебную командировку считается дата отправления транспортного средства от места постоянной работы",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "end_date",
+      "required": true,
+      "clause_id": "pp501_p4",
+      "quote": "днем приезда — дата прибытия транспортного средства к месту постоянной работы",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "purpose",
+      "required": true,
+      "clause_id": "tk166",
+      "quote": "Служебная командировка — поездка работника по распоряжению работодателя на определённый срок для выполнения служебного поручения вне места постоянной работы.",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "employment_type",
+      "required": true,
+      "clause_id": "pp501_p2",
+      "quote": "Работники, выполняющие работы (оказывающие услуги) по гражданско-правовым договорам, в служебные командировки не направляются.",
+      "required_kind": "verbatim_quote",
+      "hard_stop_when": "gph",
+      "hard_stop_action": "block_submit",
+      "hard_stop_reason": "П. 2 ПП 501: подрядчики по ГПХ в командировку не направляются."
+    },
+    {
+      "field_name": "is_pregnant",
+      "required": true,
+      "clause_id": "tk259_1",
+      "quote": "Направление в служебные командировки, служебные поездки беременных женщин не допускается.",
+      "required_kind": "verbatim_quote",
+      "hard_stop_when": "true",
+      "hard_stop_action": "block_submit",
+      "hard_stop_reason": "Ст. 259 ч. 1 ТК РФ: жёсткий запрет командирования беременных."
+    },
+    {
+      "field_name": "is_under_18",
+      "required": true,
+      "clause_id": "tk268",
+      "quote": "Запрещаются направление в служебные командировки, привлечение к сверхурочной работе, работе в ночное время, в выходные и нерабочие праздничные дни работников в возрасте до восемнадцати лет.",
+      "required_kind": "verbatim_quote",
+      "hard_stop_when": "true",
+      "hard_stop_action": "block_submit",
+      "hard_stop_reason": "Ст. 268 ТК РФ: запрет командирования работников до 18 лет."
+    },
+    {
+      "field_name": "has_apprentice_contract",
+      "required": true,
+      "clause_id": "tk203_3",
+      "quote": "Ученики по ученическому договору не могут направляться в служебные командировки, не связанные с ученичеством.",
+      "required_kind": "verbatim_quote",
+      "hard_stop_when": "true",
+      "hard_stop_action": "needs_employer_review",
+      "hard_stop_reason": "Ст. 203 ч. 3 ТК РФ: командировка ученика только если связана с ученичеством; требуется подтверждение."
+    },
+    {
+      "field_name": "written_consent_disability",
+      "required": false,
+      "condition": "required if disability_group != 'none'",
+      "clause_id": "tk167_2",
+      "quote": "Направление инвалидов в служебные командировки допускается только с их письменного согласия",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "medical_clearance_disability",
+      "required": false,
+      "condition": "required if disability_group != 'none'",
+      "clause_id": "tk167_2",
+      "quote": "при условии, что такая командировка не запрещена им в соответствии с медицинским заключением",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "written_consent_protected",
+      "required": false,
+      "condition": "required if protected_category != 'none'",
+      "clause_id": "tk259_2",
+      "quote": "допускается только с их письменного согласия",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "medical_clearance_protected",
+      "required": false,
+      "condition": "required if protected_category != 'none'",
+      "clause_id": "tk259_2",
+      "quote": "при условии, что такая командировка не запрещена им в соответствии с медицинским заключением",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "daily_return_home",
+      "required": true,
+      "clause_id": "pp501_p9",
+      "quote": "При возможности ежедневного возвращения к месту постоянного жилья суточные не выплачиваются.",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "weekend_dates_acknowledged",
+      "required": false,
+      "condition": "required if weekend_dates_present == 'true'",
+      "clause_id": "tk153",
+      "quote": "Работа в выходной или нерабочий праздничный день оплачивается не менее чем в двойном размере.",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "organization",
+      "required": false,
+      "clause_id": "pp501_p3",
+      "quote": "Служебная командировка оформляется письменным решением работодателя.",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "estimated_expenses",
+      "required": false,
+      "clause_id": "pp501_p12",
+      "quote": "Расходы по найму жилого помещения возмещаются работнику",
+      "required_kind": "verbatim_quote"
+    },
+    {
+      "field_name": "actual_stay_docs",
+      "required": false,
+      "condition": "required if after_return == 'true'",
+      "clause_id": "pp501_p6",
+      "quote": "Фактический срок пребывания работника в месте командировки определяется по проездным документам, представляемым работником по возвращении из служебной командировки.",
+      "required_kind": "verbatim_quote"
+    }
+  ],
+  "_verification_status": {
+    "act_replaced": true,
+    "act_replaced_at": "2026-10-22",
+    "citation_validation": "RUN",
+    "citation_validation_at": "2026-10-28",
+    "citation_validation_result": "all_verifiable_quotes_in_clause_text",
+    "fixture_enabled": false,
+    "fixture_enabled_reason": "Все clause.text должны быть сверены с первоисточником (consultant.ru / pravo.gov.ru) перед включением типа заявки. До этого включение блокируется.",
+    "primary_sources": [
+      "https://www.consultant.ru/document/cons_doc_LAW_503406/856de09213dec309d439af5754055dbc4acab98d/ — ПП № 501",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/b3b98c8b54f919c352560aadad5f95df943fd9fe/ — ст. 259 ТК",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/b635caacf52f1698330c7c27b9cccb0a9c23bcb9/ — ст. 268 ТК",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/118b569b77161faa3ec44a22ea0350e8d21350fc/ — ст. 203 ТК",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/8f491cd5c0dfd8755a0ee803e669f53cb22d89e8/ — ст. 167 ТК",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/9d204a7e952ea1b8293d96849eebc0217b1ab81b/ — ст. 166 ТК",
+      "https://www.consultant.ru/document/cons_doc_LAW_34683/a6a0176ee414c56cbffecc3d3fe9c161603a3b35/ — ст. 153 ТК"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({viewport:{width:360,height:640}});
+const p = await ctx.newPage();
+const errs = [];
+p.on('pageerror', e => errs.push('PAGE: ' + e.message));
+p.on('console', m => { if(m.type() === 'error') errs.push('CON: ' + m.text()); });
+await p.goto('http://web:80/', {waitUntil:'networkidle', timeout:8000});
+const title = await p.title();
+const hasApp = await p.evaluate(() => !!document.querySelector('.app, .steps, form, #btn-submit'));
+await p.screenshot({path:'/tmp/screen-360.png', fullPage:true});
+console.log('TITLE:', title);
+console.log('HAS_LUSTRE_DOM:', hasApp);
+console.log('ERRORS:', errs.length, errs.slice(0,3).join(' | '));
+await b.close();

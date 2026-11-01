@@ -1,0 +1,809 @@
+// services/frontend/styles/_layout.sass
+//
+// The application shell: the left navigation sidebar, the top application
+// header, the main content area, and the page chrome (title block, metric
+// grid, sidebar splits, footers).
+//
+// Every Phase-7 screen in the Lustre app renders inside `.app-layout`,
+// so the chrome is defined exactly once.
+
+@use "tokens" as *
+@use "mixins" as *
+
+// =============================================================
+// App shell
+// =============================================================
+
+.app-layout
+  display: grid
+  grid-template-columns: 240px minmax(0, 1fr)
+  min-height: 100vh
+  background: var(--color-bg)
+  color: var(--color-text)
+
+  @include below($breakpoint-lg)
+    grid-template-columns: 200px minmax(0, 1fr)
+
+  @include below($breakpoint-md)
+    grid-template-columns: 1fr
+
+.app
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  background: var(--color-bg)
+  color: var(--color-text)
+
+// =============================================================
+// Sidebar (left navigation)
+// =============================================================
+
+.app-sidebar
+  background: var(--color-surface)
+  border-right: 1px solid var(--color-border)
+  padding: var(--spacing-5) var(--spacing-3)
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-5)
+  position: sticky
+  top: 0
+  height: 100vh
+  overflow-y: auto
+
+  @include below($breakpoint-md)
+    position: static
+    height: auto
+    border-right: 0
+    border-bottom: 1px solid var(--color-border)
+    padding: var(--spacing-3) var(--spacing-4)
+
+  @include scrollbar-thin
+
+.app-sidebar__brand
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+  padding: 0 var(--spacing-2)
+  text-decoration: none
+  color: inherit
+  @include focus-ring
+
+.app-sidebar__logo
+  display: grid
+  place-items: center
+  flex-shrink: 0
+  width: 32px
+  height: 32px
+  border-radius: var(--radius-md)
+  background: var(--color-primary-subtle)
+  border: 1px solid var(--color-primary-border)
+  color: var(--color-primary)
+  font-weight: $font-weight-bold
+  font-size: var(--font-size-sm)
+
+.app-sidebar__brand-title
+  margin: 0
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-semibold
+  line-height: var(--line-height-tight)
+  @include truncate
+
+.app-sidebar__brand-subtitle
+  margin: 0
+  font-size: 11px
+  color: var(--color-text-subtle)
+  line-height: var(--line-height-tight)
+
+.app-sidebar__group
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-1)
+
+.app-sidebar__group-label
+  margin: 0 var(--spacing-2) var(--spacing-1)
+  padding: 0 0 var(--spacing-1)
+  border-bottom: 1px solid var(--color-border-subtle)
+  color: var(--color-text-subtle)
+  font-size: 10px
+  font-weight: $font-weight-semibold
+  letter-spacing: 0.06em
+  text-transform: uppercase
+
+.app-sidebar__nav
+  display: flex
+  flex-direction: column
+  gap: 2px
+  list-style: none
+  margin: 0
+  padding: 0
+
+.app-sidebar__link
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: var(--spacing-2) var(--spacing-3)
+  border-radius: var(--radius-sm)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+  text-decoration: none
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  @include focus-ring
+
+  &:hover
+    background: var(--color-surface-raised)
+    color: var(--color-text)
+
+.app-sidebar__link--active
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+  font-weight: $font-weight-medium
+
+  &:hover
+    background: var(--color-primary-subtle)
+    color: var(--color-primary)
+
+.app-sidebar__link-badge
+  margin-left: auto
+  min-width: 18px
+  height: 18px
+  padding: 0 5px
+  display: grid
+  place-items: center
+  border-radius: var(--radius-full)
+  background: var(--color-danger)
+  color: #fff
+  font-size: 10px
+  font-weight: $font-weight-bold
+  line-height: 1
+
+.app-sidebar__session
+  margin-top: auto
+  padding-top: var(--spacing-3)
+  padding-inline: var(--spacing-2)
+  border-top: 1px solid var(--color-border)
+  font-size: var(--font-size-sm)
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-1)
+
+.app-sidebar__session-card
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+  padding: var(--spacing-2)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface-raised)
+  border: 1px solid var(--color-border-subtle)
+
+.app-sidebar__session-avatar
+  flex-shrink: 0
+  display: grid
+  place-items: center
+  width: 32px
+  height: 32px
+  border-radius: 50%
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-bold
+
+.app-sidebar__session-meta
+  min-width: 0
+  display: flex
+  flex-direction: column
+  gap: 2px
+
+.app-sidebar__session-name
+  margin: 0
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-medium
+  color: var(--color-text)
+  @include truncate
+
+.app-sidebar__session-role
+  margin: 0
+  font-size: 11px
+  color: var(--color-text-subtle)
+
+// =============================================================
+// Top header bar (above main content)
+// =============================================================
+
+.app-header
+  display: flex
+  align-items: center
+  gap: var(--spacing-4)
+  min-height: var(--layout-header-height)
+  padding: var(--spacing-3) var(--spacing-5)
+  background: var(--color-bg-subtle)
+  border-bottom: 1px solid var(--color-border)
+  position: sticky
+  top: 0
+  z-index: $z-sticky
+  backdrop-filter: blur(8px)
+
+  @include below($breakpoint-md)
+    padding: var(--spacing-3) var(--spacing-4)
+    gap: var(--spacing-2)
+
+.app-header__row
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+  flex: 1
+  min-width: 0
+
+.app-header__breadcrumbs
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  min-width: 0
+  flex-wrap: wrap
+
+.app-header__breadcrumb
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-sm)
+
+.app-header__breadcrumb-sep
+  color: var(--color-text-subtle)
+  opacity: 0.5
+
+.app-header__breadcrumb-current
+  color: var(--color-text)
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-medium
+
+.app-header__center
+  flex: 1
+  display: flex
+  justify-content: center
+  min-width: 0
+
+.app-header__pill
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: 4px var(--spacing-3)
+  border-radius: var(--radius-full)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface-raised)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-medium
+  white-space: nowrap
+
+.app-header__pill-dot
+  width: 6px
+  height: 6px
+  border-radius: 50%
+  background: var(--color-primary)
+
+.app-header__actions
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+  margin-left: auto
+  flex-shrink: 0
+
+  @include below($breakpoint-sm)
+    gap: var(--spacing-2)
+
+.app-header__title
+  margin: 0
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+  line-height: var(--line-height-tight)
+  @include truncate
+
+.app-header__subtitle
+  margin: 0
+  font-size: var(--font-size-xs)
+  color: var(--color-text-subtle)
+  line-height: var(--line-height-tight)
+  @include truncate
+
+// =============================================================
+// Bell
+// =============================================================
+
+.bell
+  position: relative
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 36px
+  height: 36px
+  padding: 0
+  border-radius: var(--radius-md)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface)
+  color: var(--color-text-muted)
+  cursor: pointer
+  @include focusable
+
+  &:hover
+    color: var(--color-text)
+    border-color: var(--color-border-strong)
+    background: var(--color-surface-raised)
+
+.bell__icon
+  width: 18px
+  height: 18px
+  display: grid
+  place-items: center
+
+.bell__button
+  background: transparent
+  border: 0
+  padding: 0
+  margin: 0
+  cursor: pointer
+  color: inherit
+  display: inline-flex
+  align-items: center
+  justify-content: center
+
+.bell__badge
+  position: absolute
+  top: -5px
+  right: -5px
+  min-width: 18px
+  height: 18px
+  padding: 0 5px
+  display: grid
+  place-items: center
+  border-radius: var(--radius-full)
+  background: var(--color-danger)
+  color: #fff
+  font-size: 10px
+  font-weight: $font-weight-bold
+  line-height: 1
+
+.bell__panel
+  position: absolute
+  top: calc(100% + var(--spacing-2))
+  right: 0
+  z-index: $z-drawer
+  min-width: 320px
+  max-width: 380px
+  max-height: 480px
+  overflow-y: auto
+  background: var(--color-surface-overlay)
+  border: 1px solid var(--color-border-strong)
+  border-radius: var(--radius-md)
+  padding: var(--spacing-3)
+  box-shadow: var(--shadow-lg)
+  display: none
+  @include scrollbar-thin
+
+  &[aria-expanded="true"]
+    display: block
+
+  .bell[data-open="true"] &
+    display: block
+
+.bell__panel-title
+  margin: 0 0 var(--spacing-2)
+  font-weight: $font-weight-semibold
+  font-size: var(--font-size-sm)
+  color: var(--color-text)
+
+// =============================================================
+// Main content area
+// =============================================================
+
+.app-main
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-4)
+  padding: var(--spacing-5)
+  min-width: 0
+  max-width: 100%
+  overflow-x: hidden
+
+  @include below($breakpoint-lg)
+    padding: var(--spacing-4)
+
+  @include below($breakpoint-sm)
+    padding: var(--spacing-3)
+
+// =============================================================
+// Page chrome — used by every .page-* section
+// =============================================================
+
+.page
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-5)
+  width: 100%
+  min-width: 0
+
+.page-header
+  display: flex
+  align-items: flex-start
+  justify-content: space-between
+  gap: var(--spacing-4)
+  flex-wrap: wrap
+  margin-bottom: var(--spacing-2)
+
+.page-title
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-1)
+  min-width: 0
+
+.page-title h1
+  margin: 0
+  font-size: var(--font-size-2xl)
+  font-weight: $font-weight-bold
+  line-height: var(--line-height-tight)
+  letter-spacing: -0.01em
+
+.page-title p
+  margin: 0
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+  line-height: var(--line-height-normal)
+
+.page-title .breadcrumb
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  font-size: var(--font-size-xs)
+  color: var(--color-text-subtle)
+  margin-bottom: var(--spacing-1)
+
+.page-title .breadcrumb .current
+  color: var(--color-text-muted)
+
+.page-actions
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+
+.page-footer
+  margin-top: var(--spacing-2)
+  padding-top: var(--spacing-4)
+  border-top: 1px solid var(--color-border-subtle)
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  text-align: right
+
+// =============================================================
+// Sub-navigation row (tabs inside a page)
+// =============================================================
+
+.subnav
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+  border-bottom: 1px solid var(--color-border)
+  padding: 0
+  margin: 0
+
+.subnav-link
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: var(--spacing-3) var(--spacing-4)
+  border: 0
+  border-bottom: 2px solid transparent
+  border-radius: 0
+  background: transparent
+  color: var(--color-text-muted)
+  font-family: inherit
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-medium
+  white-space: nowrap
+  cursor: pointer
+  margin-bottom: -1px
+  transition: (color var(--transition-fast) var(--ease-standard), border-color var(--transition-fast) var(--ease-standard))
+  @include focus-ring
+
+  &:hover
+    color: var(--color-text)
+
+  &.active
+    color: var(--color-primary)
+    border-bottom-color: var(--color-primary)
+
+.subnav-link__badge
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  min-width: 18px
+  height: 18px
+  padding: 0 6px
+  border-radius: var(--radius-full)
+  background: var(--color-surface-overlay)
+  color: var(--color-text-muted)
+  font-size: 10px
+  font-weight: $font-weight-bold
+
+  .active &
+    background: var(--color-primary-subtle)
+    color: var(--color-primary)
+
+// =============================================================
+// Section heading
+// =============================================================
+
+.section-head
+  display: flex
+  align-items: baseline
+  justify-content: space-between
+  gap: var(--spacing-3)
+  margin-bottom: var(--spacing-3)
+  flex-wrap: wrap
+
+.section-head h2
+  margin: 0
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+
+.section-head .hint
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-sm)
+
+// =============================================================
+// Metric tile — used by the dashboard metric strip
+// =============================================================
+
+.metric-card
+  @include surface(var(--color-surface-overlay), var(--color-border))
+  border-radius: var(--radius-md)
+  padding: var(--spacing-4)
+  @include stack(var(--spacing-1))
+
+.metric-value
+  font-size: var(--font-size-2xl)
+  font-weight: $font-weight-bold
+  color: var(--color-text)
+  line-height: var(--line-height-tight)
+
+.metric-label
+  font-size: var(--font-size-sm)
+  color: var(--color-text-muted)
+
+.metric-up .metric-value
+  color: var(--color-success)
+
+.metric-down .metric-value
+  color: var(--color-danger)
+
+// =============================================================
+// Data table — used by all Phase-8 lists
+// =============================================================
+
+.data-table
+  width: 100%
+  border-collapse: collapse
+  font-size: var(--font-size-sm)
+  background: var(--color-surface-overlay)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-md)
+  overflow: hidden
+
+.data-table th
+  text-align: left
+  background: var(--color-surface-inset)
+  color: var(--color-text-muted)
+  font-weight: $font-weight-semibold
+  font-size: 11px
+  text-transform: uppercase
+  letter-spacing: 0.04em
+  padding: var(--spacing-3) var(--spacing-4)
+  border-bottom: 1px solid var(--color-border)
+  white-space: nowrap
+
+.data-table td
+  padding: var(--spacing-3) var(--spacing-4)
+  border-bottom: 1px solid var(--color-border-subtle)
+  vertical-align: middle
+
+.data-table tbody tr
+  transition: background-color var(--transition-fast) var(--ease-standard)
+
+  &:hover td
+    background: var(--color-surface)
+
+  &:last-child td
+    border-bottom: none
+
+.data-table code
+  font-size: 11px
+  font-family: var(--font-family-mono)
+
+// =============================================================
+// Empty state — used by every list that may be empty
+// =============================================================
+
+.empty-state
+  @include surface(var(--color-surface-overlay), var(--color-border))
+  border-radius: var(--radius-md)
+  padding: var(--spacing-6)
+  text-align: center
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+
+// =============================================================
+// Filter chip — legacy Phase-8 buttons (settings mode picker)
+// =============================================================
+
+.filter-chip
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-1)
+  padding: 4px 12px
+  border: 1px solid var(--color-border)
+  border-radius: 999px
+  background: var(--color-surface)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+  cursor: pointer
+  font-family: inherit
+  white-space: nowrap
+  transition: (background-color var(--transition-fast) var(--ease-standard), border-color var(--transition-fast) var(--ease-standard), color var(--transition-fast) var(--ease-standard))
+
+.filter-chip:hover
+  border-color: var(--color-border-strong)
+  color: var(--color-text)
+
+.filter-chip-active
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+  border-color: var(--color-primary)
+
+.filter-row
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+
+// =============================================================
+// Settings card — Phase-8 mode picker
+// =============================================================
+
+.settings-card
+  @include surface(var(--color-surface-overlay), var(--color-border))
+  border-radius: var(--radius-md)
+  padding: var(--spacing-6)
+  @include stack(var(--spacing-4))
+
+.settings-actions
+  display: flex
+  justify-content: flex-end
+  margin-top: var(--spacing-2)
+
+.mode-grid
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: var(--spacing-4)
+
+  @include below($breakpoint-lg)
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+  @include below($breakpoint-md)
+    grid-template-columns: 1fr
+
+.mode-card
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-2)
+  align-items: stretch
+  justify-content: space-between
+  width: 100%
+  min-height: 132px
+  padding: var(--spacing-4)
+  border-radius: var(--radius-md)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface)
+  text-align: left
+  cursor: pointer
+  font-family: inherit
+  font-size: inherit
+  color: inherit
+  @include focus-ring
+
+  &:hover
+    border-color: var(--color-border-strong)
+    background: var(--color-surface-raised)
+
+  &.filter-chip-active
+    border-color: var(--color-primary)
+    background: var(--color-primary-subtle)
+
+.mode-title
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  margin-bottom: var(--spacing-1)
+
+.mode-title h3
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-semibold
+  margin: 0
+
+.mode-status
+  color: var(--color-success)
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-medium
+
+// =============================================================
+// Grid utilities
+// =============================================================
+
+.grid
+  display: grid
+  gap: var(--spacing-5)
+  min-width: 0
+
+.grid--cards
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+
+.grid--metrics
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+
+.grid--split
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr)
+  gap: var(--spacing-5)
+
+  @include below($breakpoint-lg)
+    grid-template-columns: 1fr
+
+.grid--sidebar
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)
+  gap: var(--spacing-5)
+
+  @include below($breakpoint-lg)
+    grid-template-columns: 1fr
+
+.grid--two
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+  gap: var(--spacing-5)
+
+  @include below($breakpoint-md)
+    grid-template-columns: 1fr
+
+.grid-2
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: var(--spacing-4)
+
+  @include below($breakpoint-sm)
+    grid-template-columns: 1fr
+
+.grid-3
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: var(--spacing-4)
+
+  @include below($breakpoint-md)
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+  @include below($breakpoint-sm)
+    grid-template-columns: 1fr
+
+.grid-4
+  display: grid
+  grid-template-columns: repeat(4, minmax(0, 1fr))
+  gap: var(--spacing-4)
+
+  @include below($breakpoint-lg)
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+  @include below($breakpoint-sm)
+    grid-template-columns: 1fr
+
+.grid-5
+  display: grid
+  grid-template-columns: repeat(5, minmax(0, 1fr))
+  gap: var(--spacing-3)
+
+  @include below($breakpoint-md)
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+
+  @include below($breakpoint-sm)
+    grid-template-columns: repeat(2, minmax(0, 1fr))

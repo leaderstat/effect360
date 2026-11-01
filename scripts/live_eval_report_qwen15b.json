@@ -1,0 +1,144 @@
+{
+  "ok": false,
+  "skipped": false,
+  "provider": "ollama",
+  "base_url": "http://localhost:11434",
+  "model": "qwen2.5-coder:1.5b",
+  "temperature": 0.1,
+  "total_latency_ms": 6798.6,
+  "fixture": "database\\seeds\\demo_synthetic_fixture.json",
+  "dataset": "scripts\\eval_dataset.json",
+  "metrics": {
+    "classification_accuracy": {
+      "name": "classification_accuracy",
+      "ok": false,
+      "passed": 1,
+      "failed": 5,
+      "total": 6,
+      "metric_pct": 16.67,
+      "errors_sample": [
+        {
+          "text": "Прошу учебную поездку в Казань с 12 по 14 ноября 2026 года. Цель — конференция A",
+          "got": "business_trip",
+          "expected": "demo_trip"
+        },
+        {
+          "text": "Нужно поехать в Санкт-Петербург 3-5 декабря, встречи с подрядчиками. Оплата из б",
+          "got": "business_trip",
+          "expected": "demo_trip"
+        },
+        {
+          "text": "Командировка в Новосибирск на неделю, цель — участие в семинаре. Финансирование ",
+          "got": "business_trip",
+          "expected": "demo_trip"
+        },
+        {
+          "text": "Хочу поехать в Сочи 1-7 марта, отдохнуть и поработать над документами.",
+          "got": "business_trip",
+          "expected": "demo_trip"
+        },
+        {
+          "text": "Прошу учебную поездку в Екатеринбург с 20 по 22 января 2027 года.",
+          "got": "business_trip",
+          "expected": "demo_trip"
+        }
+      ]
+    },
+    "extraction_recall": {
+      "name": "extraction_recall",
+      "ok": false,
+      "passed": 1,
+      "failed": 5,
+      "total": 6,
+      "metric_pct": 16.67,
+      "errors_sample": [
+        {
+          "text": "Прошу учебную поездку в Казань с 12 по 14 ноября 2026 года. Цель — конференция A",
+          "extracted": {
+            "city": "Казань",
+            "date_from": "2026-11-12",
+            "date_to": "2026-11-14",
+            "grant_number": "24-11-001",
+            "purpose": "конференция AI-Summit",
+            "funding": "grant"
+          },
+          "expected": {
+            "destination_city": "Казань",
+            "purpose": "конференция AI-Summit",
+            "start_date": "12 ноября 2026",
+            "end_date": "14 ноября 2026",
+            "funding_source": "grant",
+            "grant_number": "РФФИ 24-11-001"
+          }
+        },
+        {
+          "text": "Нужно поехать в Санкт-Петербург 3-5 декабря, встречи с подрядчиками. Оплата из б",
+          "extracted": {
+            "city": "Санкт-Петербург",
+            "date_from": "2023-12-03",
+            "date_to": "2023-12-05",
+            "grant_number": null,
+            "purpose": "Встречи с подрядчиками",
+            "funding": "budget"
+          },
+          "expected": {
+            "destination_city": "Санкт-Петербург",
+            "purpose": "встречи с подрядчиками",
+            "start_date": "3 декабря",
+            "end_date": "5 декабря",
+            "funding_source": "budget"
+          }
+        },
+        {
+          "text": "Командировка в Новосибирск на неделю, цель — участие в семинаре. Финансирование ",
+          "extracted": {
+            "city": "Новосибирск",
+            "date_from": "2023-04-01",
+            "date_to": "2023-04-07",
+            "grant_number": "25-22-099",
+            "purpose": "Участие в семинаре",
+            "funding": "grant"
+          },
+          "expected": {
+            "destination_city": "Новосибирск",
+            "purpose": "участие в семинаре",
+            "funding_source": "grant",
+            "grant_number": "РНФ 25-22-099"
+          }
+        },
+        {
+          "text": "Хочу поехать в Сочи 1-7 марта, отдохнуть и поработать над документами.",
+          "extracted": {
+            "city": "Сочи",
+            "date_from": "2023-03-01",
+            "date_to": "2023-03-07",
+            "grant_number": null,
+            "purpose": "отдохнуть и поработать над документами",
+            "funding": "budget"
+          },
+          "expected": {
+            "destination_city": "Сочи",
+            "start_date": "1 марта",
+            "end_date": "7 марта"
+          }
+        },
+        {
+          "text": "Прошу учебную поездку в Екатеринбург с 20 по 22 января 2027 года.",
+          "extracted": {
+            "city": "Екатеринбург",
+            "date_from": "2027-01-20",
+            "date_to": "2027-01-22",
+            "grant_number": null,
+            "purpose": "учебная поездка",
+            "funding": "budget"
+          },
+          "expected": {
+            "destination_city": "Екатеринбург",
+            "start_date": "20 января 2027",
+            "end_date": "22 января 2027"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1446 @@
+// services/frontend/styles/_pages.sass
+//
+// Styles specific to the CJM screens: the landing page, the request form,
+// the applicant cabinet with its notification bell, the moderator queue and
+// the request card, the official response and the 360° result card.
+@use "tokens" as *
+@use "mixins" as *
+
+// =============================================================
+// Shared classes (defined here so @extend within _pages.sass can
+// find them — Dart Sass does not cross stylesheet boundaries).
+// =============================================================
+.btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: var(--spacing-2)
+  padding: 0 var(--spacing-4)
+  min-height: 36px
+  border-radius: var(--radius-md)
+  border: 1px solid transparent
+  font-family: inherit
+  font-size: var(--font-size-base)
+  line-height: 1
+  text-decoration: none
+  white-space: nowrap
+  cursor: pointer
+
+.btn--primary
+  background: var(--color-primary)
+  color: var(--color-text-inverted)
+  border-color: var(--color-primary)
+
+.btn--ghost
+  background: transparent
+  color: var(--color-text-muted)
+  border-color: transparent
+
+.bell__panel
+  position: absolute
+  top: calc(100% + var(--spacing-2))
+  right: 0
+  min-width: 320px
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-md)
+  padding: var(--spacing-3)
+
+.app-sidebar
+  background: var(--color-surface)
+  border-right: 1px solid var(--color-border)
+  padding: var(--spacing-4)
+
+
+
+// ---- Landing / marketing -------------------------------------------------
+.hero
+  padding: var(--spacing-12) 0 var(--spacing-10)
+
+  @include below($breakpoint-md)
+    padding: var(--spacing-8) 0
+
+.hero__eyebrow
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  margin-bottom: var(--spacing-4)
+  padding: var(--spacing-1) var(--spacing-3)
+  border-radius: var(--radius-full)
+  border: 1px solid var(--color-primary-border)
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-semibold
+  letter-spacing: 0.04em
+  text-transform: uppercase
+
+.hero__title
+  margin: 0 0 var(--spacing-4)
+  max-width: 22ch
+  font-size: var(--font-size-3xl)
+  font-weight: $font-weight-bold
+  line-height: var(--line-height-tight)
+  letter-spacing: -0.02em
+
+  @include below($breakpoint-md)
+    font-size: var(--font-size-2xl)
+
+.hero__lead
+  margin: 0 0 var(--spacing-6)
+  max-width: 60ch
+  color: var(--color-text-muted)
+  font-size: var(--font-size-lg)
+  line-height: var(--line-height-relaxed)
+
+  @include below($breakpoint-md)
+    font-size: var(--font-size-md)
+
+.hero__actions
+  display: flex
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+
+.feature-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
+  gap: var(--spacing-5)
+  margin-top: var(--spacing-8)
+
+.feature
+  @include stack(var(--spacing-3))
+  @include surface(var(--color-bg-subtle))
+  padding: var(--spacing-5)
+
+.feature__icon
+  display: grid
+  place-items: center
+  width: 38px
+  height: 38px
+  border-radius: var(--radius-md)
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+  font-size: var(--font-size-lg)
+
+.feature__title
+  margin: 0
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+
+.feature__text
+  margin: 0
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+  line-height: var(--line-height-normal)
+
+// ---- Request form --------------------------------------------------------
+.request-form
+  @include stack(var(--spacing-6))
+
+.request-form__section
+  @include stack(var(--spacing-4))
+
+.request-form__legend
+  margin: 0
+  padding-bottom: var(--spacing-3)
+  border-bottom: 1px solid var(--color-border)
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+
+.request-summary
+  @include surface(var(--color-bg-subtle))
+  padding: var(--spacing-4)
+  @include stack(var(--spacing-3))
+
+.request-summary__row
+  display: flex
+  align-items: baseline
+  justify-content: space-between
+  gap: var(--spacing-4)
+  font-size: var(--font-size-sm)
+
+.request-summary__label
+  color: var(--color-text-muted)
+
+.request-summary__value
+  font-weight: $font-weight-medium
+  text-align: right
+
+// ---- Applicant cabinet ----------------------------------------------------
+.cabinet
+  @include stack(var(--spacing-6))
+
+.cabinet__toolbar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+
+.cabinet__filters
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+
+.request-list
+  @include stack(var(--spacing-3))
+  list-style: none
+  margin: 0
+  padding: 0
+
+.request-row
+  @include surface(var(--color-surface))
+  display: flex
+  align-items: center
+  gap: var(--spacing-4)
+  padding: var(--spacing-4)
+  width: 100%
+  font: inherit
+  color: inherit
+  text-align: left
+  cursor: pointer
+  @include hover-lift
+  @include focusable
+
+  @include below($breakpoint-sm)
+    flex-direction: column
+    align-items: flex-start
+    gap: var(--spacing-2)
+
+.request-row__main
+  flex: 1
+  min-width: 0
+  @include stack(var(--spacing-1))
+
+.request-row__title
+  margin: 0
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-medium
+  @include truncate
+
+.request-row__meta
+  display: flex
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+
+.request-row__side
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+  flex-shrink: 0
+
+// ---- Notification bell / feed --------------------------------------------
+.notification-feed
+  @include stack(var(--spacing-2))
+  max-height: 420px
+  overflow-y: auto
+  padding: var(--spacing-2)
+  @include scrollbar-thin
+
+.notification
+  display: flex
+  align-items: flex-start
+  gap: var(--spacing-3)
+  width: 100%
+  padding: var(--spacing-3)
+  border: none
+  border-radius: var(--radius-md)
+  background: transparent
+  color: inherit
+  font: inherit
+  text-align: left
+  cursor: pointer
+  @include focus-ring
+
+  &:hover
+    background: var(--color-surface-raised)
+
+.notification--unread
+  background: var(--color-primary-subtle)
+
+  .notification__title
+    color: var(--color-primary)
+
+.notification__icon
+  flex-shrink: 0
+  display: grid
+  place-items: center
+  width: 28px
+  height: 28px
+  border-radius: var(--radius-sm)
+  background: var(--color-surface-raised)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+
+.notification__body
+  flex: 1
+  min-width: 0
+  @include stack(var(--spacing-1))
+
+.notification__title
+  margin: 0
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-semibold
+  @include truncate
+
+.notification__message
+  margin: 0
+  color: var(--color-text-muted)
+  font-size: var(--font-size-xs)
+  line-height: var(--line-height-normal)
+  @include clamp-lines(2)
+
+.notification__time
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  @include tabular-numbers
+
+.notification__unread-dot
+  flex-shrink: 0
+  width: 8px
+  height: 8px
+  margin-top: 6px
+  border-radius: 50%
+  background: var(--color-primary)
+
+// ---- Timeline ------------------------------------------------------------
+.timeline
+  position: relative
+  margin: 0
+  padding: 0 0 0 var(--spacing-6)
+  list-style: none
+
+  &::before
+    content: ""
+    position: absolute
+    left: 7px
+    top: 6px
+    bottom: 6px
+    width: 2px
+    background: var(--color-border)
+
+.timeline__item
+  position: relative
+  padding-bottom: var(--spacing-5)
+
+  &:last-child
+    padding-bottom: 0
+
+.timeline__marker
+  position: absolute
+  left: calc(-1 * var(--spacing-6) + 2px)
+  top: 4px
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  border: 2px solid var(--color-bg)
+  background: var(--color-border-strong)
+
+.timeline__marker--accent
+  background: var(--color-primary)
+
+.timeline__marker--success
+  background: var(--color-success)
+
+.timeline__marker--warning
+  background: var(--color-warning)
+
+.timeline__title
+  margin: 0 0 var(--spacing-1)
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-medium
+
+.timeline__meta
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  @include tabular-numbers
+
+.timeline__body
+  margin: var(--spacing-2) 0 0
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+  line-height: var(--line-height-normal)
+
+// ---- Progress stepper ----------------------------------------------------
+.stepper
+  display: flex
+  align-items: flex-start
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+  list-style: none
+  margin: 0
+  padding: 0
+
+.stepper__step
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: var(--spacing-2) var(--spacing-3)
+  border-radius: var(--radius-full)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface)
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-medium
+
+.stepper__step--done
+  border-color: rgb(74 222 128 / 35%)
+  background: var(--color-success-subtle)
+  color: var(--color-success)
+
+.stepper__step--current
+  border-color: var(--color-primary-border)
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+
+.stepper__index
+  display: grid
+  place-items: center
+  width: 18px
+  height: 18px
+  border-radius: 50%
+  background: currentcolor
+  font-size: 10px
+  font-weight: $font-weight-bold
+
+.stepper__index
+  color: var(--color-bg)
+
+.stepper__step--done .stepper__index
+  color: var(--color-bg)
+
+// ---- Moderator queue -----------------------------------------------------
+.queue
+  @include stack(var(--spacing-4))
+
+.queue__toolbar
+  @include surface(var(--color-bg-subtle))
+  padding: var(--spacing-4)
+  @include stack(var(--spacing-3))
+
+.queue__filters
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr))
+  gap: var(--spacing-3)
+
+.queue__summary
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: var(--spacing-3)
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-sm)
+  flex-wrap: wrap
+
+.queue__list
+  @include stack(var(--spacing-3))
+  list-style: none
+  margin: 0
+  padding: 0
+
+.queue-item
+  @include surface(var(--color-surface))
+  padding: var(--spacing-4)
+  @include stack(var(--spacing-3))
+  border-left: 3px solid var(--color-border)
+
+.queue-item--overdue
+  border-left-color: var(--color-danger)
+
+.queue-item--in_progress
+  border-left-color: var(--color-info)
+
+.queue-item--returned
+  border-left-color: var(--color-warning)
+
+.queue-item--accepted,
+.queue-item--answer_ready
+  border-left-color: var(--color-primary)
+
+.queue-item--completed
+  border-left-color: var(--color-success)
+
+.queue-item__header
+  display: flex
+  align-items: flex-start
+  justify-content: space-between
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+
+.queue-item__title
+  margin: 0
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-semibold
+
+.queue-item__meta
+  display: flex
+  gap: var(--spacing-4)
+  flex-wrap: wrap
+  color: var(--color-text-subtle)
+  font-size: var(--size-xs, 0.75rem)
+
+.queue-item__fields
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+
+.queue-item__actions
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+  padding-top: var(--spacing-3)
+  border-top: 1px solid var(--color-border-subtle)
+
+// ---- Request card (moderator detail) -------------------------------------
+.request-card
+  @include stack(var(--spacing-6))
+
+.request-card__section
+  @include stack(var(--spacing-4))
+
+.request-card__heading
+  margin: 0
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+
+.request-card__grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))
+  gap: var(--spacing-4)
+
+.metric-tile
+  @include surface(var(--color-bg-subtle))
+  padding: var(--spacing-4)
+  @include stack(var(--spacing-2))
+
+.metric-tile__label
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  text-transform: uppercase
+  letter-spacing: 0.04em
+
+.metric-tile__value
+  font-size: var(--font-size-2xl)
+  font-weight: $font-weight-bold
+  line-height: var(--line-height-tight)
+  @include tabular-numbers
+
+.metric-tile__unit
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+
+.metric-tile--empty .metric-tile__value
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-medium
+
+.audit-table
+  font-size: var(--font-size-sm)
+
+// ---- Official response ----------------------------------------------------
+.official-response
+  @include surface(var(--color-surface))
+  padding: var(--spacing-6)
+  @include below($breakpoint-sm)
+    padding: var(--spacing-4)
+
+.official-response__header
+  padding-bottom: var(--spacing-4)
+  margin-bottom: var(--spacing-4)
+  border-bottom: 1px solid var(--color-border)
+
+.official-response__org
+  margin: 0
+  font-size: var(--font-size-lg)
+  font-weight: $font-weight-semibold
+
+.official-response__requisites
+  margin: var(--spacing-1) 0 0
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-sm)
+
+.official-response__meta
+  display: flex
+  gap: var(--spacing-6)
+  flex-wrap: wrap
+  margin-bottom: var(--spacing-5)
+  font-size: var(--font-size-sm)
+
+.official-response__recipient
+  margin: 0 0 var(--spacing-5)
+
+.official-response__subject
+  margin: 0 0 var(--spacing-4)
+  font-size: var(--font-size-md)
+  font-weight: $font-weight-semibold
+
+.official-response__body
+  white-space: pre-wrap
+  color: var(--color-text)
+  font-size: var(--font-size-base)
+  line-height: var(--line-height-relaxed)
+
+.official-response__signature
+  margin-top: var(--spacing-6)
+  padding-top: var(--spacing-4)
+  border-top: 1px solid var(--color-border)
+  display: flex
+  justify-content: space-between
+  gap: var(--spacing-4)
+  flex-wrap: wrap
+  font-size: var(--font-size-sm)
+
+.official-response__draft-badge
+  color: var(--color-warning)
+
+.official-response__approved-badge
+  color: var(--color-success)
+
+.requisite-check
+  @include stack(var(--spacing-2))
+  margin: 0
+  padding: 0
+  list-style: none
+
+.requisite-check__item
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+  font-size: var(--font-size-sm)
+
+.requisite-check__mark
+  flex-shrink: 0
+  width: 18px
+  height: 18px
+  display: grid
+  place-items: center
+  border-radius: 50%
+  font-size: 10px
+  font-weight: $font-weight-bold
+
+.requisite-check__item--filled .requisite-check__mark
+  background: var(--color-success-subtle)
+  color: var(--color-success)
+
+.requisite-check__item--missing .requisite-check__mark
+  background: var(--color-danger-subtle)
+  color: var(--color-danger)
+
+// ---- 360° result card ----------------------------------------------------
+.result-card
+  @include surface(var(--color-bg-subtle))
+  padding: var(--spacing-6)
+  border-top: 3px solid var(--color-primary)
+  @include below($breakpoint-sm)
+    padding: var(--spacing-4)
+
+.result-card__title
+  margin: 0 0 var(--spacing-5)
+  font-size: var(--font-size-lg)
+  font-weight: $font-weight-semibold
+
+.result-card__section
+  padding: var(--spacing-4) 0
+  border-top: 1px solid var(--color-border-subtle)
+
+  &:first-of-type
+    border-top: none
+    padding-top: 0
+
+.result-card__heading
+  margin: 0 0 var(--spacing-2)
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-semibold
+  color: var(--color-text-subtle)
+  text-transform: uppercase
+  letter-spacing: 0.04em
+
+.result-card__text
+  margin: 0
+  color: var(--color-text)
+  line-height: var(--line-height-normal)
+
+.result-card__links
+  @include stack(var(--spacing-2))
+  margin: 0
+  padding: 0
+  list-style: none
+
+.result-card__link
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  color: var(--color-info)
+  font-size: var(--font-size-sm)
+  text-decoration: none
+  @include focus-ring
+
+  &:hover
+    text-decoration: underline
+
+// ---- Feedback ------------------------------------------------------------
+.feedback
+  @include stack(var(--spacing-4))
+
+.feedback__scale
+  display: flex
+  gap: var(--spacing-2)
+  flex-wrap: wrap
+
+.feedback__option
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: var(--spacing-1)
+  min-width: 92px
+  padding: var(--spacing-3)
+  border-radius: var(--radius-md)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface)
+  color: var(--color-text-muted)
+  font-family: inherit
+  font-size: var(--font-size-sm)
+  cursor: pointer
+  transition: (border-color var(--transition-fast) var(--ease-standard), background-color var(--transition-fast) var(--ease-standard))
+  @include focus-ring
+
+  &:hover
+    border-color: var(--color-border-strong)
+
+.feedback__option--selected
+  border-color: var(--color-primary-border)
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+
+.feedback__option__emoji
+  font-size: var(--font-size-xl)
+  line-height: 1
+
+.feedback__note
+  margin: 0
+
+.feedback__thanks
+  @include surface(var(--color-success-subtle), rgb(74 222 128 / 35%))
+  padding: var(--spacing-4)
+  color: var(--color-success)
+  font-size: var(--font-size-base)
+
+// ---- Login ----------------------------------------------------------------
+.login
+  max-width: 420px
+  margin: 0 auto
+  @include stack(var(--spacing-6))
+
+.login__title
+  margin: 0
+  font-size: var(--font-size-xl)
+  font-weight: $font-weight-semibold
+  text-align: center
+.login__subtitle
+  margin: 0
+  text-align: center
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+// ---- Phase 8: панель автоматизации --------------------------------------
+// Page-level wrappers for Phase 8 screens; the shared shell (header,
+// sidebar, metric grid, subnav, table, chip, banner) is defined in
+// _layout.sass and _components.sass.
+.page-automation,
+.page-checks,
+.page-exceptions,
+.page-journal,
+.page-settings,
+.page-bell
+  @include stack(var(--spacing-5))
+  min-width: 0
+  width: 100%
+
+.banner
+  @include surface(transparent, var(--color-surface-overlay))
+  border-left: 3px solid var(--color-primary)
+  padding: var(--spacing-3) var(--spacing-4)
+  border-radius: var(--radius-md)
+  font-size: var(--font-size-sm)
+  display: flex
+  align-items: center
+  gap: var(--spacing-2)
+.banner-error
+  border-left-color: var(--color-danger)
+  color: var(--color-danger)
+.banner-info
+  border-left-color: var(--color-primary)
+.banner-success
+  border-left-color: var(--color-success)
+  color: var(--color-success)
+.banner-warning
+  border-left-color: var(--color-warning)
+  color: var(--color-warning)
+
+// Compact filter chip used in the journal and exceptions tabs.
+.chip
+  display: inline-flex
+  align-items: center
+  padding: 2px 8px
+  border-radius: 999px
+  font-size: 11px
+  font-weight: $font-weight-medium
+  background: var(--color-surface-overlay)
+  color: var(--color-text-muted)
+.chip-passed,
+.chip-auto,
+.chip-transition
+  background: var(--color-success-subtle)
+  color: var(--color-success)
+.chip-needs_info,
+.chip-manual
+  background: var(--color-warning-subtle)
+  color: var(--color-warning)
+.chip-ambiguous,
+.chip-error,
+.chip-dismissed
+  background: var(--color-danger-subtle)
+  color: var(--color-danger)
+.chip-open,
+.chip-incomplete
+  background: var(--color-danger-subtle)
+  color: var(--color-danger)
+.chip-confirm,
+.chip-propose,
+.chip-kind
+  background: var(--color-primary-subtle)
+  color: var(--color-primary)
+.chip-resolved
+  background: var(--color-success-subtle)
+  color: var(--color-success)
+.chip-neutral
+  background: var(--color-surface-overlay)
+  color: var(--color-text-muted)
+
+// ---- Data table, empty state, filter chips, settings card,
+//      mode grid, mode title — all defined in _layout.sass.
+// ---- The .page-automation wrappers already cover the Phase-8
+//      specific classes (banner, chip); the rest is shared.
+  margin-bottom: var(--spacing-1)
+.mode-title h3
+  font-size: var(--font-size-base)
+  font-weight: $font-weight-semibold
+.mode-status
+  color: var(--color-success)
+  font-size: var(--font-size-sm)
+
+// =============================================================
+// Applicant-side styles
+//
+// The rules below cover the class vocabulary rendered by the Lustre
+// view code (services/frontend/src/effectivnost_360_lustre/*.gleam).
+// They were missing from the design system, so the applicant UI was
+// rendered as unstyled HTML. The selectors are appended AFTER the
+// moderator/automation rules so that page-specific overrides win
+// over the BEM-modifier naming used in _components.sass.
+// =============================================================
+
+// ---- App shell ------------------------------------------------------
+// The sidebar, top header, main column, bell and page chrome are
+// defined in _layout.sass. _pages.sass only adds page-specific tweaks
+// and the classes that are unique to a particular view.
+
+// ---- Button variants used by the view code --------------------------
+// The view code uses un-prefixed names like `btn-primary` instead of
+// the BEM `btn--primary`. We accept both spellings.
+.btn-primary
+  @extend .btn
+  background: var(--color-primary)
+  color: var(--color-text-inverted)
+  border-color: var(--color-primary)
+  &:hover:not(:disabled)
+    background: var(--color-primary-hover)
+
+.btn-secondary
+  @extend .btn
+  background: var(--color-surface-raised)
+  color: var(--color-text)
+  border-color: var(--color-border)
+  &:hover:not(:disabled)
+    background: var(--color-surface-overlay)
+
+.btn-small
+  @extend .btn
+  min-height: 28px
+  padding: 0 var(--spacing-3)
+  font-size: var(--font-size-sm)
+
+.btn-large
+  @extend .btn
+  min-height: 42px
+  padding: 0 var(--spacing-6)
+  font-size: var(--font-size-md)
+
+.primary
+  @extend .btn--primary
+.secondary-link
+  @extend .btn--ghost
+
+// ---- Forms ----------------------------------------------------------
+.form__field
+  @include stack(var(--spacing-2))
+  margin-bottom: var(--spacing-3)
+
+.form__label
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-medium
+  color: var(--color-text)
+
+.form__input,
+.form__textarea
+  width: 100%
+  padding: var(--spacing-2) var(--spacing-3)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface)
+  color: var(--color-text)
+  font-family: inherit
+  font-size: var(--font-size-base)
+  &:focus-visible
+    outline: 2px solid var(--color-primary)
+    outline-offset: 1px
+    border-color: var(--color-primary)
+
+.form__textarea
+  min-height: 120px
+  resize: vertical
+
+// ---- Sign-in form ----------------------------------------------------
+//
+// Shown instead of the content of the closed-loop screens while there is
+// no session. The session token lives in sessionStorage, so the form is
+// the only way to obtain one from the browser.
+.login-form
+  @include surface
+  max-width: 420px
+  padding: var(--spacing-5)
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-3)
+
+  @include below($breakpoint-sm)
+    max-width: 100%
+    padding: var(--spacing-4)
+
+.login-form .form__field
+  margin-bottom: 0
+
+.login-form .field__error
+  display: block
+
+.login-form__hint
+  margin: 0
+  color: var(--color-text-subtle)
+  font-size: var(--font-size-xs)
+  line-height: var(--line-height-normal)
+
+// ---- Cards & grids --------------------------------------------------
+.card-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+  gap: var(--spacing-4)
+
+.cards
+  display: grid
+  gap: var(--spacing-3)
+
+// ---- Landing-page sections (hero / how / maturity / proof / faq) ---
+.hero
+  padding: var(--spacing-8) 0
+
+.hero-cta
+  display: flex
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+
+.how
+  padding: var(--spacing-7) 0
+
+.how-steps
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))
+  gap: var(--spacing-4)
+
+.maturity
+  padding: var(--spacing-6) 0
+
+.maturity-result
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: var(--spacing-2) var(--spacing-3)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface-overlay)
+  font-weight: $font-weight-medium
+
+.proof
+  padding: var(--spacing-6) 0
+
+.proof-grid
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: var(--spacing-4)
+  @media (max-width: 600px)
+    grid-template-columns: 1fr
+
+.proof-yes,
+.proof-no
+  padding: var(--spacing-3)
+  border-radius: var(--radius-sm)
+
+.proof-yes
+  background: var(--color-success-subtle)
+  border-left: 3px solid var(--color-success)
+
+.proof-no
+  background: var(--color-surface-overlay)
+  border-left: 3px solid var(--color-border-strong)
+
+.faq
+  padding: var(--spacing-6) 0
+
+.faq-sent
+  padding: var(--spacing-3)
+  border-radius: var(--radius-sm)
+  background: var(--color-success-subtle)
+  color: var(--color-success)
+  font-weight: $font-weight-medium
+
+.final-cta
+  padding: var(--spacing-7) 0
+  text-align: center
+
+.demo-result
+  padding: var(--spacing-4)
+  border-radius: var(--radius-md)
+  background: var(--color-surface-overlay)
+  border: 1px dashed var(--color-border-strong)
+  font-family: var(--font-family-mono)
+
+// ---- Filters row ----------------------------------------------------
+.filters
+  display: flex
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+  margin-bottom: var(--spacing-4)
+
+.filters__field
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-1)
+
+.filters__select
+  padding: var(--spacing-2) var(--spacing-3)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface)
+
+.filters__checkbox
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-1)
+  font-size: var(--font-size-sm)
+
+// ---- Slider (numeric editor) ---------------------------------------
+.slider-row
+  display: flex
+  align-items: center
+  gap: var(--spacing-3)
+
+.slider-value
+  min-width: 4ch
+  text-align: right
+  font-family: var(--font-family-mono)
+  font-weight: $font-weight-semibold
+
+// ---- Notice / inline error ------------------------------------------
+.notice
+  padding: var(--spacing-3)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface-overlay)
+  border-left: 3px solid var(--color-primary)
+
+.notice--error
+  background: var(--color-danger-subtle)
+  border-left-color: var(--color-danger)
+  color: var(--color-danger)
+
+// ---- Page wrappers (new vocabulary) --------------------------------
+.page
+  padding: var(--spacing-5)
+  max-width: 960px
+  margin: 0 auto
+
+.page-footer
+  margin-top: var(--spacing-7)
+  padding-top: var(--spacing-4)
+  border-top: 1px solid var(--color-border)
+  font-size: var(--font-size-sm)
+  color: var(--color-text-muted)
+
+.page__title
+  margin-bottom: var(--spacing-2)
+
+.page__lead
+  color: var(--color-text-muted)
+  margin-bottom: var(--spacing-4)
+
+.page__stepper
+  margin-bottom: var(--spacing-5)
+
+.page__panel
+  @include surface
+  padding: var(--spacing-5)
+  margin-bottom: var(--spacing-4)
+
+.page__panel-title
+  margin: 0 0 var(--spacing-3)
+  font-size: var(--font-size-lg)
+  font-weight: $font-weight-semibold
+
+.page__links
+  display: flex
+  gap: var(--spacing-3)
+  flex-wrap: wrap
+  margin-top: var(--spacing-4)
+
+// ---- Automation mode grid (settings) -------------------------------
+.mode-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))
+  gap: var(--spacing-4)
+
+// ---- Response form (applicant feedback / approval) ----------------
+.response-form
+  @include stack(var(--spacing-4))
+
+// ---- notification feed extras --------------------------------------
+.notification-feed__summary
+  font-size: var(--font-size-sm)
+  color: var(--color-text-muted)
+  margin-bottom: var(--spacing-2)
+
+.notification-feed__items
+  @include stack(var(--spacing-2))
+
+.notification__actions
+  display: flex
+  gap: var(--spacing-2)
+  margin-top: var(--spacing-2)
+
+.metric-tile__demo
+  display: inline-block
+  margin-top: var(--spacing-1)
+  padding: 0 var(--spacing-2)
+  border-radius: 999px
+  background: var(--color-warning-subtle, var(--color-surface-overlay))
+  color: var(--color-warning)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-semibold
+
+.app-header__row .badge
+  display: inline-block
+  padding: 0 var(--spacing-2)
+  border-radius: 999px
+  background: var(--color-surface-overlay)
+  font-size: var(--font-size-xs)
+  color: var(--color-text-muted)
+
+// ---- Page chrome — title block on each Phase-8 page --------------
+.page-mode-pill
+  display: inline-flex
+  align-items: center
+  gap: var(--spacing-2)
+  padding: 4px var(--spacing-3)
+  border-radius: var(--radius-full)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface-raised)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-xs)
+  font-weight: $font-weight-medium
+  white-space: nowrap
+
+.page-mode-pill__dot
+  width: 6px
+  height: 6px
+  border-radius: 50%
+  background: var(--color-primary)
+
+// ---- Card surface used for split panels on the dashboard ---------
+.card
+  @include surface(var(--color-surface-overlay), var(--color-border))
+  border-radius: var(--radius-md)
+  padding: var(--spacing-5)
+  @include stack(var(--spacing-4))
+
+// ---- Result summary (progress bar + legend) -----------------------
+.results-summary
+  @include stack(var(--spacing-3))
+
+.results-summary__total
+  margin: 0
+  display: flex
+  align-items: baseline
+  gap: var(--spacing-3)
+  font-size: var(--font-size-xl)
+  font-weight: $font-weight-bold
+  color: var(--color-text)
+
+.results-summary__hint
+  font-size: var(--font-size-sm)
+  font-weight: $font-weight-normal
+  color: var(--color-text-muted)
+
+.results-summary__bar
+  height: 12px
+  border-radius: var(--radius-full)
+  background: var(--color-surface-inset)
+  border: 1px solid var(--color-border-subtle)
+  overflow: hidden
+  display: flex
+
+.results-summary__segments
+  display: flex
+  width: 100%
+  height: 100%
+
+.results-summary__segment
+  display: block
+  height: 100%
+
+.results-summary__segment--passed
+  background: var(--color-success)
+
+.results-summary__segment--needs_info
+  background: var(--color-warning)
+
+.results-summary__segment--ambiguous
+  background: var(--color-danger)
+
+.results-summary__segment--other
+  background: var(--color-border-strong)
+
+.results-summary__legend
+  list-style: none
+  margin: 0
+  padding: 0
+  display: flex
+  flex-direction: column
+  gap: var(--spacing-2)
+  font-size: var(--font-size-sm)
+  color: var(--color-text-muted)
+
+  li
+    display: flex
+    align-items: center
+    gap: var(--spacing-2)
+
+.legend-dot
+  display: inline-block
+  width: 10px
+  height: 10px
+  border-radius: 50%
+
+.legend-dot--passed
+  background: var(--color-success)
+
+.legend-dot--needs_info
+  background: var(--color-warning)
+
+.legend-dot--ambiguous
+  background: var(--color-danger)
+
+// =============================================================
+// Id-targeted styles for the applicant form
+//
+// The Lustre view code reaches several form controls by id rather
+// than by class. We add minimal styling so the layout does not break
+// when the design-system classes are reused elsewhere.
+// =============================================================
+
+// ---- Form controls (applicant side) --------------------------------
+#text,
+#faq-input,
+#clarification-answer,
+#response-preview
+  width: 100%
+  padding: var(--spacing-3)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface)
+  color: var(--color-text)
+  font-family: inherit
+  font-size: var(--font-size-base)
+  &:focus-visible
+    outline: 2px solid var(--color-primary)
+    outline-offset: 1px
+    border-color: var(--color-primary)
+
+#text
+  min-height: 140px
+  resize: vertical
+
+#faq-input
+  min-height: 80px
+  resize: vertical
+
+#response-preview
+  min-height: 200px
+  font-family: var(--font-family-mono)
+  background: var(--color-surface-overlay)
+
+// ---- Form action buttons (applicant side) --------------------------
+#btn-start,
+#btn-create,
+#btn-submit,
+#btn-send-clarification,
+#btn-approve-response,
+#btn-save-response,
+#btn-start-final,
+#btn-toggle-preview,
+#faq-submit
+  @extend .btn
+  background: var(--color-primary)
+  color: var(--color-text-inverted)
+  border-color: var(--color-primary)
+  padding: var(--spacing-3) var(--spacing-5)
+  &:hover:not(:disabled)
+    background: var(--color-primary-hover)
+
+// ---- Status / notice slots -----------------------------------------
+#status-1,
+#status-2,
+#request-id,
+#request-status,
+#request-type,
+#result-note,
+#action-notice,
+#complete-msg
+  display: block
+  margin-top: var(--spacing-2)
+  padding: var(--spacing-2) var(--spacing-3)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface-overlay)
+  color: var(--color-text-muted)
+  font-size: var(--font-size-sm)
+
+#bell-button
+  background: transparent
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-md)
+  padding: var(--spacing-2) var(--spacing-3)
+  cursor: pointer
+
+// ---- Blocking rules from the server (regulatory veto) -----------------
+//
+// The applicant filled the field in, but the value is forbidden by a
+// norm. The block must be visually distinct from a normal "missing
+// field" notice so the user reads it as "you can't submit", not "fill
+// in one more field".
+
+#server-hard-stops
+  margin-top: var(--spacing-3)
+  padding: var(--spacing-4)
+  border-radius: var(--radius-md)
+  border: 1px solid var(--color-danger)
+  background: var(--color-danger-subtle)
+  color: var(--color-text)
+
+  h3
+    margin: 0 0 var(--spacing-2)
+    color: var(--color-danger)
+    font-size: var(--font-size-md)
+    font-weight: $font-weight-semibold
+
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    display: flex
+    flex-direction: column
+    gap: var(--spacing-3)
+
+  .hard-stop-item
+    padding: var(--spacing-3)
+    border: 1px solid var(--color-danger)
+    border-radius: var(--radius-sm)
+    background: var(--color-surface)
+
+    strong
+      display: block
+      font-size: var(--font-size-sm)
+      color: var(--color-danger)
+      margin-bottom: var(--spacing-1)
+
+    .reason
+      display: block
+      font-size: var(--font-size-sm)
+      color: var(--color-text-muted)
+      margin-bottom: var(--spacing-1)
+
+    .quote
+      display: block
+      font-size: var(--font-size-sm)
+      color: var(--color-text)
+      font-style: italic
+      padding-left: var(--spacing-3)
+      border-left: 3px solid var(--color-danger)
+      margin-bottom: var(--spacing-1)
+
+    .clause
+      display: block
+      font-size: var(--font-size-xs)
+      color: var(--color-text-subtle)
+
+#server-hard-stops.hidden
+  display: none
+
+#bell-count
+  display: inline-block
+  margin-left: var(--spacing-1)
+  padding: 0 var(--spacing-2)
+  border-radius: 999px
+  background: var(--color-danger)
+  color: var(--color-text-inverted)
+  font-size: var(--font-size-xs)
+  min-width: 1.5em
+  text-align: center
+
+#bell-panel
+  @extend .bell__panel
+
+#app-sidebar
+  @extend .app-sidebar
+
+#filter-overdue,
+#filter-status
+  padding: var(--spacing-2) var(--spacing-3)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-sm)
+  background: var(--color-surface)
+
+// ---- Section anchors used by the SPA router -------------------------
+#screen-start,
+#screen-describe,
+#screen-clarify,
+#screen-result
+  display: block
+
+#capabilities,
+#hero,
+#how,
+#maturity,
+#maturity-result,
+#proof,
+#demo-result,
+#faq,
+#faq-form,
+#faq-sent,
+#final-cta
+  scroll-margin-top: var(--spacing-6)

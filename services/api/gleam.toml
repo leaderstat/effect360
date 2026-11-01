@@ -1,0 +1,20 @@
+name = "effectivnost_360_api"
+version = "0.1.0"
+description = "Gleam HTTP API for Effectivnost 360"
+licences = ["MIT"]
+gleam = ">= 1.11.0"
+
+[dependencies]
+common_sql = ">= 1.0.0 and < 2.0.0"
+common_sql_postgresql = ">= 1.0.2 and < 2.0.0"
+envoy = ">= 1.0.2 and < 2.0.0"
+gleam_erlang = ">= 1.0.0 and < 2.0.0"
+gleam_http = ">= 4.0.0 and < 5.0.0"
+gleam_json = ">= 3.0.1 and < 4.0.0"
+gleam_stdlib = ">= 0.70.0 and < 2.0.0"
+mist = ">= 6.0.0 and < 7.0.0"
+wisp = ">= 2.2.2 and < 3.0.0"
+wisp_mist = { path = "vendor/wisp_mist" }
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"

@@ -1,0 +1,73 @@
+{
+  "ok": false,
+  "skipped": false,
+  "provider": "ollama",
+  "base_url": "http://localhost:11434",
+  "model": "devstral-small-2:latest",
+  "temperature": 0.1,
+  "total_latency_ms": 36157.75,
+  "fixture": "database\\seeds\\demo_synthetic_fixture.json",
+  "dataset": "scripts\\eval_dataset.json",
+  "metrics": {
+    "classification_accuracy": {
+      "name": "classification_accuracy",
+      "ok": false,
+      "passed": 0,
+      "failed": 6,
+      "total": 6,
+      "metric_pct": 0.0,
+      "errors_sample": [
+        {
+          "text": "Прошу учебную поездку в Казань с 12 по 14 ноября 2026 года. Цель — конференция A",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Нужно поехать в Санкт-Петербург 3-5 декабря, встречи с подрядчиками. Оплата из б",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Командировка в Новосибирск на неделю, цель — участие в семинаре. Финансирование ",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Хочу поехать в Сочи 1-7 марта, отдохнуть и поработать над документами.",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Это просто тест без командировки.",
+          "error": "TimeoutError: timed out"
+        }
+      ]
+    },
+    "extraction_recall": {
+      "name": "extraction_recall",
+      "ok": false,
+      "passed": 0,
+      "failed": 6,
+      "total": 6,
+      "metric_pct": 0.0,
+      "errors_sample": [
+        {
+          "text": "Прошу учебную поездку в Казань с 12 по 14 ноября 2026 года. Цель — конференция A",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Нужно поехать в Санкт-Петербург 3-5 декабря, встречи с подрядчиками. Оплата из б",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Командировка в Новосибирск на неделю, цель — участие в семинаре. Финансирование ",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Хочу поехать в Сочи 1-7 марта, отдохнуть и поработать над документами.",
+          "error": "TimeoutError: timed out"
+        },
+        {
+          "text": "Это просто тест без командировки.",
+          "error": "TimeoutError: timed out"
+        }
+      ]
+    }
+  }
+}
